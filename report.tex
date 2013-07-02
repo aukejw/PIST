@@ -1,0 +1,30 @@
+The main focus of the project is improving the walking motion of NAO robots by optimizing a set of specific parameters. Our research is specifically about a game competition, but has also a broader value. Walking is indeed one of the main problems in robotics, and robots can be used in many environments to solve different problems. By walking better robots can move faster and avoid hardware or environment damages. There's an even broader meaning in our work, which is studying the effectiveness of different machine learning methods in real life environments, which means taking into considerations factors such as field imperfections, joints problems and overheating. To work on this we built a specific framework which would enable us to manage the learning process and get result info. 
+
+
+Robocup's aim is to promote Robotics and AI research in a playful and entertaining fashion that would attract even not expert people and potential future generations of researchers. The event is also an occasion for insiders to share and expand their knowledge. The competition factor also plays a major role, which stimulates improvement in an exponential fashion during the event week. The fact that SPL is mainly about software helps this sharing process, as code from the winning team has to be published after the end of the competition. 
+
+Using the walking parameters that were result of a partial learning process using both simulation and real life environment, there has been a visible improvement in performance of our team of robots, compared to the latest competition (Iran Open). 
+ 
+The robot which is used in SPL is the NAO by Aldebaran, a humanoid robot that features 11 degrees of freedom for the legs.
+
+In the RoboCup 2013 we used the NaoTH frameork for Nao by Berlin United (Hafner et al.)for various reasons: it features a modular code which makes it easy to expand, and provides a walking engine from which we can select a set of parameters for learning. 
+
+The walking system is closed loop, and we used some specific parameters that we found the most important for the learning.
+Some examples are:
+-singleSupportTime: defines how long the nao stands on a foot for during the walking. This determines the walking frequency.
+-stepHeight: defines the max distance between the ground and the base of the feet. If not too high improves stability, but given the low weight of the robots, if set over a certain limit, makes the robot bounce and actually lose stability. It also requires more work by the joints which translates in overheating and joints efficiency decreasing. 
+-maxStep x,y, θ : define the maximum length (for walking forward), width (for strafing left and right) and angle (for turning left and rigth). Given a certain singleSupporTime, those parameters determine the speed of the movements. If set too high the result is a loss in stability.
+bodyOffset x --------------------
+bodyPitchOffset--------------------
+CoMHeight------------------------
+
+We choose to solve this problem using machine learning methods, as setting and testing all those parameters by hand is time-consuming and requires some rigorous methods to be applied. Also not all robots behave the same, and aging makes them less efficient. Automating the walking parameters settings makes all those factors automatically being taken into considerations. Also machine learning is an advanced and relevant topic in AI research and learning how to walk, and optimizing parameters in general, is a problem that is not limited to Nao robots, but applies to many other situations. -----------------------------------------
+
+
+CHAPTER 3 -------------------------------
+
+
+
+CHAPTER 4
+ 
+In the future we look forward to working on online learning, that is learning during matches, for several reasons. First, there are some conditions and situations that are difficult to recreate in lab or in simulation. Also the learning process is time consuming and by using online learning we can exploit matches as an opportunity to have more time to improve our results. To do that it's necessary to classify different kind of actions sequences in order to learn different sets of parameters for each of them. Also we need to find a way to predict what kind of sequence of actions is about to be performed in order to chose what set of parameters to apply during a match. We think this would give a big improvement to our game as different actions ,such as walking forward or turning, work better with different settings. It would be easy to implement different parameters for each action, but that wouldn't make such a difference as working on different sets of actions. 
