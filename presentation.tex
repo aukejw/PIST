@@ -1,0 +1,211 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{natbib}
+
+\mode<presentation>
+{
+    \usetheme{Berlin}
+	\usecolortheme{default}
+	\setbeamercovered{transparent}
+}
+
+\title[Optimization of Walking Parameters]
+{Optimization of Walking Parameters}
+
+\subtitle{Machine learning techniques to improve walking on bipedal robots}
+
+\author[Girardi, Kooijman, Wiggers]{N. Girardi, C. Kooijman, A.J.Wiggers}
+
+\institute[University of Amsterdam]
+{
+	Project AI Track Intelligent Systems (6 EC)\\
+	Artificial Intelligence\\
+	Faculty of Science (FNWI) \\
+	University of Amsterdam
+}
+
+\AtBeginSection[]
+{
+	\begin{frame}<beamer>{Outline}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+
+
+\begin{document}
+
+\begin{frame}[plain]
+	\begin{center}
+		\textsc{}\\
+		\textsc{}
+	\end{center}
+
+	\begin{center}
+		Chiel Kooijman, Nicol\`o Girardi \& Auke Wiggers
+	\end{center}
+\end{frame}
+
+\maketitle
+
+\begin{frame}{Outline}
+	\setcounter{tocdepth}{1}
+	\tableofcontents
+\end{frame}
+
+\section{Introduction}
+
+\subsection{Motivation}
+\begin{frame}{Why RoboCup?}
+	\begin{center}
+		\includegraphics[scale=.2]{robocuplogo}
+	\end{center}
+	\begin{itemize}
+		\item Promote Robotics and AI research
+		\item Make robotics appealing to the public and future generations of
+			researchers
+		\item Improve on state-of-the-art techniques
+		\item Stimulating environment
+		\item Big sharing community (especially in SPL)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Why RoboCup?}
+	Intermediate results
+	\begin{itemize}
+		\item We are The Dutch Nao Team (UvA \& TU Delft)
+		\item Undefeated in the first round of the world cup
+		\item ...
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Why RoboCup?}
+	Intermediate results
+	\begin{itemize}
+		\item We are The Dutch Nao Team (UvA \& TU Delft)
+		\item Undefeated in the first round of the world cup
+		\item We've made it to the second round!
+	\end{itemize}
+\end{frame}
+
+\subsection{Platform}
+\begin{frame}{Platform}
+	\begin{center}
+		\includegraphics[width = 0.23\textwidth]{naospecsJoints}
+	\end{center}
+	\begin{block}{Humanoid Robot NAO}
+		\begin{itemize}
+			\item Nao by Aldebaran Robotics
+			\item Human-like joints with 11 DOF for the legs.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Framework}
+% TODO IMAGE
+NaoTH framework for Nao by Berlin United \cite{naothdescription}
+\begin{itemize}
+\item Modular: easy to extend
+\item Walking engine
+\item Selectable parameter set for learning
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Walking Engine}
+	Closed loop system for walking\\
+	Some parameters
+	\begin{itemize}
+		\item singleSupportTime
+		\item stepHeight
+		\item maxStep$_{x, y, \theta}$
+		\item bodyOffset $x$
+		\item bodyPitchOffset
+		\item COMHeight
+	\end{itemize}
+\end{frame}		
+
+\section{Approach}
+\begin{frame}{Learning}
+	Motivation:
+	\begin{itemize}
+		\item Difficult and time-consuming to design by hand
+		\item Increasing error due to servo heat
+		\item Robots age
+		\item Hot research topic
+		\item Not limited to Nao
+	\end{itemize}
+\end{frame}
+
+\subsection{Related Work}
+\begin{frame}{Related Work}
+    \begin{itemize}
+		\item Finite difference methods
+		\item Local search
+        \item Genetic Algorithms
+	\end{itemize}
+\end{frame}
+
+\subsection{Genetic Algorithm}
+\begin{frame}{Genetic Algorithm}
+	Similar to biology: Survival of the fittest.
+    \begin{itemize}
+		\item Transmission
+		\item Crossover
+		\item Mutation
+	\end{itemize}
+
+	\begin{itemize}
+		\item Population size 
+		\item Number of parents
+		\item Survivors
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Fitness}
+    Evaluation tasks representative for real game:
+    \begin{itemize}
+        \item Walking forward/backward
+		\item Strafing
+	    \item Go to point
+		\item Rapid change of direction
+		\item Combinations
+    \end{itemize}
+
+    Extra:
+    \begin{itemize}
+    \item Penalize falling down.    
+    \item Fitness based on walking distance.
+    \end{itemize}
+\end{frame}
+
+\section{Future work}
+\begin{frame}{Future work}
+\begin{itemize}
+\item Real-time parameter adjustment
+\item Different parameters for different motions
+\item On-line learning
+	\begin{itemize}
+		\item Evaluation during matches
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Online Learning}
+\begin{itemize}
+\item More time to learn (robots need to `rest')
+\item Best representation of real game
+\item Can account for changing conditions (overheating)
+\item Individual robots are different
+\end{itemize}
+\end{frame}
+
+\section{Questions}
+
+\begin{frame}{References}
+	\bibliographystyle{apalike}
+	\bibliography{pres}
+\end{frame}
+
+\end{document}
+% vim: set spell : spelllang=en_gb :
+
+
