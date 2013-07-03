@@ -1,30 +1,150 @@
-The main focus of the project is improving the walking motion of NAO robots by optimizing a set of specific parameters. Our research is specifically about a game competition, but has also a broader value. Walking is indeed one of the main problems in robotics, and robots can be used in many environments to solve different problems. By walking better robots can move faster and avoid hardware or environment damages. There's an even broader meaning in our work, which is studying the effectiveness of different machine learning methods in real life environments, which means taking into considerations factors such as field imperfections, joints problems and overheating. To work on this we built a specific framework which would enable us to manage the learning process and get result info. 
+\documentclass[a4paper, twocolumn]{article}
+\usepackage[a4paper,pdftex]{geometry}
+\usepackage[english]{babel}
+\usepackage{amsmath,amsfonts}
+\usepackage[round]{natbib}
+\usepackage[pdftex]{graphicx}
+\usepackage{epstopdf}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage[all]{xy}
+\usepackage[toc,page]{appendix}
+\usepackage[T1]{fontenc}
+\usepackage{verbatim}
+%\usepackage{titling}
+\usepackage{multirow}
+%\usepackage{multicol}
 
+% Page style.
+%\pagestyle{fancy}
 
 Robocup's aim is to promote Robotics and AI research in a playful and entertaining fashion that would attract even not expert people and potential future generations of researchers. The event is also an occasion for insiders to share and expand their knowledge. The competition factor also plays a major role, which stimulates improvement in an exponential way during the event week. The fact that SPL is mainly about software helps this sharing process, as code from the winning team has to be published after the end of the competition. 
 
-Using the walking parameters that were result of a partial learning process using both simulation and real life environment, there has been a visible improvement in performance of our team of robots, compared to the latest competition (Iran Open). 
- 
+% Page header and footer.
+%\lhead{}
+%\cfoot{}
+%\rfoot{\thepage}
+
+
+
+\title{Optimization of Walking Parameters\\
+\vspace{.5em}
+\begin{center}
+	\includegraphics[scale=.8]{images/uva}\\ \normalsize
+	Project AI (6 EC)\vspace{1em}\\MSc Artifical Intelligence\\Faculty of Science\\ \vspace{.2em}
+\end{center}
+}
+%\posttitle{{}\\\normalsize\textsc{NAO Visual Gait And Trajectory Estimation}\vspace{1cm}}
+%\newcommand{\MyuAthors}{
+%\small
+%\begin{table}[ht]
+%\centering
+%\begin{tabular}{cccc}
+%\multicolumn{4}{c}{Supervisor: Dr. A. Visser}\\\\
+%C. Kooijman             &S. Laan               &C. R. Verschoor         &A. J. Wiggers\\
+%5743028                 &6036031               &10017321                &6036163\\
+%\url{Chiel999@gmail.com}&\url{S.Laan@uva.nl}   &\url{Verschoor@uva.nl}  &\url{A.J.Wiggers@uva.nl}
+%\end{tabular}
+%\end{table}
+%}
+
+\author{
+N Girardi\\10457828\\\url{Nickog90@gmail.com} \and
+C. Kooijman\\5743028\\\url{Chiel999@gmail.com} \and
+A. J. Wiggers\\6036163\\\url{A.J.Wiggers@uva.nl}
+}
+
+%%\preauthor{\large\MyAuthors}
+%\author{\MyAuthors}
+\date{\today}
+
+
+% OFFICIAL FRONT PAGE
+\begin{document}
+%\maketitle
+%\begin{multicols}{2}
+\maketitle
+%\clearpage
+
+% TABLE OF CONTENTS
+%\thispagestyle{empty}
+%\tableofcontents
+%\clearpage
+
+\begin{abstract}
+	This article describes a framework for optimising walking parameters for a
+	NAO bipedal robot, both in a virtual setting and in the real world. It also
+	covers preliminary results of the first experiments and provides
+	suggestions for future research based on those experiments and the author's
+	experience from hand-tuning those parameters.
+\end{abstract}
+
+\section{Introduction}
+The main focus of the project is improving the walking motion of NAO robots by
+optimizing a set of parameters for an existing walking engine. Our research is
+specifically about a game competition, the RoboCup Standard Platform League
+(SPL), but has also a broader value. Walking is indeed one of the main
+challenges in robotics, and robots can be used in many environments to solve
+different problems. By walking better robots can move faster and avoid hardware
+or environment damages. Walking well allows a robot to reach and function in
+places designed for humans. There's an even broader meaning in this work:
+To study the effectiveness of different machine learning methods in real
+life environments, which means taking into consideration factors such as field
+imperfections, sensor error, error in joint angles, and overheating of servo's. To work on this
+we built a specific framework which would enable us to manage the learning
+process and obtain data for evaluation. 
+
+The RoboCup's aim is to promote Robotics and AI research in a playful and
+entertaining fashion that would appeal to non-expert people and potential
+future generations of researchers \citep{kitano1997robocup}. The event is also
+an occasion for insiders to share and expand their knowledge. The competition
+factor plays a role by creating an environment which stimulates improvement.
+The fact that SPL is mainly about software helps this sharing process, as code
+from the winning team has to be published after the end of the competition. 
+
+\begin{figure}
+	\center
+	\includegraphics[scale=.85]{naospecsJoints.png}
+	\caption{Aldebaran overview of NAO joints.}
+	\label{fig:joints}
+\end{figure}
+
+\section{Approach}
 The robot which is used in SPL is the NAO by Aldebaran, a humanoid robot that features 11 degrees of freedom for the legs.
 
-In the RoboCup 2013 we used the NaoTH frameork for Nao by Berlin United (Hafner et al.)for various reasons: it features a modular code which makes it easy to expand, and provides a walking engine from which we can select a set of parameters for learning. 
+In the RoboCup 2013 we used the NaoTH frameork for NAO by Berlin United (Hafner et al.)for various reasons: it features a modular code which makes it easy to expand, and provides a walking engine from which we can select a set of parameters for learning. 
 
 The walking system is closed loop, and we used some specific parameters that we found the most important for the learning.
 Some examples are:
--singleSupportTime: defines how long the nao stands on a foot for during the walking. This determines the walking frequency.
--stepHeight: defines the max distance between the ground and the base of the feet. If not too high improves stability, but given the low weight of the robots, if set over a certain limit, makes the robot bounce and actually lose stability. It also requires more work by the joints which translates in overheating and joints efficiency decreasing. 
--maxStep x,y, θ : define the maximum length (for walking forward), width (for strafing left and right) and angle (for turning left and rigth). Given a certain singleSupporTime, those parameters determine the speed of the movements. If set too high the result is a loss in stability.
-bodyOffset x --------------------
-bodyPitchOffset--------------------
-CoMHeight------------------------
+\begin{description}
+\item[singleSupportTime] defines how long the nao stands on a foot for during the walking. This determines the walking frequency.
+\item[stepHeight] defines the max distance between the ground and the base of the feet. If not too high improves stability, but given the low weight of the robots, if set over a certain limit, makes the robot bounce and actually lose stability. It also requires more work by the joints which translates in overheating and joints efficiency decreasing. 
+\item[maxStep$_{x,y, \theta }$] Defines the maximum length (for walking forward), width (for strafing left and right) and angle (for turning left and rigth). Given a certain singleSupporTime, those parameters determine the speed of the movements. If set too high the result is a loss in stability.
+\item[bodyOffset$_{x}$] The body's offset in x-direction (forward). Setting this to a positive number will result in positioning the body forward during walking, which may contribute to faster walking in the $x$-direction.
+\item[bodyPitchOffset] Indicates how much the body leans forward during walking with respect to the hips and legs. Similar to bodyOffset in that it can contribute to fast walks in $x$-direction. 
+\item[CoMHeight] Height of the center of mass of the robot during walking. The lower the body will be, the more stable the walk. However, the load on the leg joints will be higher and steps must be much smaller than for high center of mass. 
+\end{description}
 
-We choose to solve this problem using machine learning methods, as setting and testing all those parameters by hand is time-consuming and requires some rigorous methods to be applied. Also not all robots behave the same, and aging makes them less efficient. Automating the walking parameters settings makes all those factors automatically being taken into considerations. Also machine learning is an advanced and relevant topic in AI research and learning how to walk, and optimizing parameters in general, is a problem that is not limited to Nao robots, but applies to many other situations. -----------------------------------------
-
-
-CHAPTER 3 -------------------------------
-
+We choose to solve this problem using machine learning methods, as setting and testing these parameters by hand is time-consuming and requires some rigorous methods to be applied. Also not all robots behave the same, and aging makes them less efficient. Automating the walking parameters settings makes all those factors automatically being taken into considerations. Also machine learning is an advanced and relevant topic in AI research and learning how to walk, and optimizing parameters in general, is a problem that is not limited to NAO robots, but applies to many other situations. -----------------------------------------
 
 
-CHAPTER 4
+\section{Results}
+Using the walking parameters that were result of a partial learning process using both simulation and real life environment, there has been a visible improvement in performance of our team of robots, compared to the latest competition (Iran Open). 
  
+
+
+
+\section{Future Work}
+ 
+
 In the future we look forward to working on online learning, that is learning during matches, for several reasons. First, there are some conditions and situations that are difficult to recreate in lab or in simulation. Also the learning process is time consuming and by using online learning we can exploit matches as an opportunity to have more time to improve our results. To do that it's necessary to classify different kind of actions sequences in order to learn different sets of parameters for each of them. Also we need to find a way to predict what kind of sequence of actions is about to be performed in order to chose what set of parameters to apply during a match. We think this would give a big improvement to our game as different actions ,such as walking forward or turning, work better with different settings. It would be easy to implement different parameters for each action, but that wouldn't make such a difference as working on different sets of actions. That's because actions such as staying still don't require any particular parameter set per se, but if combined with other actions such as walking forward (so, for example, doing a few steps and stop) specific values are needed for the parameters. 
+
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}
+
