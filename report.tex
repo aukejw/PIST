@@ -144,7 +144,7 @@ In the RoboCup 2013 we used the NaoTH framework for NAO by Berlin United
 makes it easy to expand, and provides a walking engine from which we can select
 a set of parameters for learning. 
 
-The walking system is closed loop, and we used some specific parameters that we found the most important for the learning.
+The walking system is closed loop, and uses a set of more than thirty parameters. A subset of this set was selected manually for learning, as these were likely to contribute to a stable and fast walk than others.
 Some examples are:
 \begin{description}
 \item[singleSupportTime] Defines how long the NAO stands on a foot for during the walking. This determines the walking frequency.
@@ -167,7 +167,7 @@ The NaoTH framework is a modular framework that runs iteratively.  For the use o
 \item[MachineLearningMethod] An abstract class that contains pure virtual functions, to be implemented by classes corresponding to specific machine learning methods.
 \end{description}
 
-This module can be controlled through debug requests. 
+This module can be controlled through debug requests. Alongside the module, an interface was created for easy parameter selection and the display of information during learning.
 
 % TODO pic interface + screen
 
