@@ -30,11 +30,11 @@
 
 
 
-\title{Optimization of Walking Parameters\\
+\title{Automated Optimization of Walking Parameters for the NAO Humanoid Robot\\
 \vspace{.5em}
 \begin{center}
 	\includegraphics[scale=.8]{images/uva}\\ \normalsize
-	Project AI (6 EC)\vspace{1em}\\MSc Artifical Intelligence\\Faculty of Science\\ \vspace{.2em}
+	Intelligent Systems Track\vspace{.4em}\\MSc Artifical Intelligence\\Faculty of Science\\ \vspace{.2em}
 \end{center}
 }
 %\posttitle{{}\\\normalsize\textsc{NAO Visual Gait And Trajectory Estimation}\vspace{1cm}}
@@ -107,14 +107,14 @@ from the winning team has to be published after the end of the competition.
 
 \begin{figure}
 	\center
-	\includegraphics[scale=.85]{naospecsJoints.png}
+	\includegraphics[scale=.85]{naospecsJoints}
 	\caption{Aldebaran overview of NAO joints.}
 	\label{fig:joints}
 \end{figure}
 
 \section{Approach}
 \subsection{Platform}
-The robot which is used in SPL is the NAO by Aldebaran, a humanoid robot that features 11 degrees of freedom for the legs.
+The robot which is used in SPL is the NAO by Aldebaran \citep{gouaillier2009mechatronic}, a humanoid robot that features 11 degrees of freedom for the legs.
 
 \subsection{Walking engine}
 In the RoboCup 2013 we used the NaoTH framework for NAO by Berlin United
@@ -128,14 +128,14 @@ Some examples are:
 \item[singleSupportTime] Defines how long the NAO stands on a foot for during the walking. This determines the walking frequency.
 \item[stepHeight] Defines the maximum distance between the ground and the base of the feet. If not too high improves stability, but given the low weight of the robots, if set over a certain limit, makes the robot bounce and actually lose stability. It also requires more work by the joints which translates in overheating and joints' efficiency decreasing. 
 \item[maxStep$_{x,y, \theta }$] Defines the maximum length (for walking forward), width (for strafing left and right) and angle (for turning left and right). Given a certain singleSupporTime, those parameters determine the speed of the movements. If set too high the result is a loss in stability.
-\item[bodyOffset$_{x}$] The body's offset in x-direction (forward). Setting this to a positive number will result in positioning the body forward during walking, which may contribute to faster walking in the $x$-direction.
+\item[bodyOffset$_{x}$] The body's offset in $x$-direction (forward). Setting this to a positive number will result in positioning the body forward during walking, which may contribute to faster walking in the $x$-direction.
 \item[bodyPitchOffset] Indicates how much the body leans forward during walking with respect to the hips and legs. Similar to bodyOffset in that it can contribute to fast walks in $x$-direction. 
 \item[CoMHeight] Height of the center of mass of the robot during walking. The lower the body will be, the more stable the walk. However, the load on the leg joints will be higher and steps must be much smaller than for high center of mass. 
 \end{description}
 
 We choose to solve this problem using machine learning methods, as setting and testing these parameters manually is a time-consuming task and does not guarantee selection of an optimal parameter set. The differences between robots (for example actuator and sensor error) cause parameter settings to have a different effect on each robot. Also, the use of machine learning (and, more specifically, reinforcement learning) to learn robots to perform complex tasks is a relevant topic in AI research, and is a problem that is not limited to NAO robots, but applies to many other situations. 
 
-\subsection
+\subsection{Bla}
 
 
 \section{Results}
