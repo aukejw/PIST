@@ -4,4 +4,10 @@
 *.log
 *.out
 *.pdf
-
+*.png
+*.dvi
+*.fdb_latexmk
+*.fls
+*.fdb_latexmk
+*.fls
+*.jpg
