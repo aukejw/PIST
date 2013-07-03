@@ -113,6 +113,28 @@ from the winning team has to be published after the end of the competition.
 	\label{fig:joints}
 \end{figure}
 
+\section{Related work}
+
+\subsection{Genetic algorithm}
+A method that has successfully been used in similar scenarios'  TODO CITE is the use of a genetic algorithm. A basic genetic algorithm contains at least the following:
+\begin{itemize} 
+\item Properties that define an organism, the `genes' that can be altered to create new organisms.
+\item A population of organisms that is to be evaluated. 
+\item A fitness function and corresponding evaluation tasks that specifies how these organisms are evaluated.
+\item A way to generate new generations based on old ones. 
+\item Learning parameters that influence how new generations are formed. 
+\end{itemize}
+
+Through the fitness function and corresponding evaluations, the search can be guided towards a specific direction. A disadvantage of this method is that the fitness function must be user-specified, which may be hard to do in tasks with multiple objectives or in cases where the criteria for performance are unclear. 
+
+The ways in which new generations are generated are similar to biological generation of offspring.  
+\begin{itemize} 
+\item Transmission of parts of either parent.
+\item Crossover between two parents by taking a (weighted) mean of parts of the two.
+\item Mutation by adding random elements to the organism.
+\end{itemize}
+
+
 \section{Approach}
 \subsection{Platform}
 The robot which is used in SPL is the Nao H25 by Aldebaran, a humanoid robot that features 11 degrees of freedom for the legs. 
@@ -133,8 +155,18 @@ Some examples are:
 
 We choose to solve this problem using machine learning methods, as setting and testing these parameters manually is a time-consuming task and does not garantuee selection of an optimal parameter set. The differences between robots (for example actuator and sensor error) cause parameter settings to have a different effect on each robot. Also, the use of machine learning (and, more specifically, reinforcement learning) to learn robots to perform complex tasks is a relevant topic in AI research, and is a problem that is not limited to Nao robots, but applies to many other situations. 
 
-\subsection
 
+\section{Implementation}
+The NaoTH framework is a modular framework that runs iteratively.  For the use of machine learning methods described in the previous section, it was extended by a module `MachineLearning', which serves as a generic input for different machine learning methods. It consists of multiple classes:
+\begin{description}
+\item[MachineLearning] The module class itself, handles debug requests from users.
+\item[LearnToWalk] The evaluation program, used by the module to test performance of specific parametersets.
+\item[MachineLearningMethod] An abstract class that contains pure virtual functions, to be implemented by classes corresponding to specific machine learning methods.
+\end{description}
+
+This module can be controlled through debug requests. 
+
+% TODO pic interface + screen
 
 \section{Results}
 
