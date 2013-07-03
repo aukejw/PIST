@@ -30,7 +30,7 @@
 
 
 \title{Optimization of Walking Parameters}
-%\posttitle{{}\\\normalsize\textsc{Nao Visual Gait And Trajectory Estimation}\vspace{1cm}}
+%\posttitle{{}\\\normalsize\textsc{NAO Visual Gait And Trajectory Estimation}\vspace{1cm}}
 %\newcommand{\MyuAthors}{
 %\small
 %\begin{table}[ht]
@@ -72,14 +72,14 @@ A. J. Wiggers\\6036163\\\url{A.J.Wiggers@uva.nl}
 
 \begin{abstract}
 	This article describes a framework for optimising walking parameters for a
-	Nao bipedal robot, both in a virtual setting and in the real world. It also
+	NAO bipedal robot, both in a virtual setting and in the real world. It also
 	covers preliminary results of the first experiments and provides
 	suggestions for future research based on those experiments and the author's
 	experience from hand-tuning those parameters.
 \end{abstract}
 
 \section{Introduction}
-The main focus of the project is improving the walking motion of Nao robots by
+The main focus of the project is improving the walking motion of NAO robots by
 optimizing a set of parameters for an existing walking engine. Our research is
 specifically about a game competition, the RoboCup Standard Platform League
 (SPL), but has also a broader value. Walking is indeed one of the main
@@ -102,11 +102,9 @@ The fact that SPL is mainly about software helps this sharing process, as code
 from the winning team has to be published after the end of the competition. 
 
 \section{Approach}
-Using the walking parameters that were result of a partial learning process using both simulation and real life environment, there has been a visible improvement in performance of our team of robots, compared to the latest competition (Iran Open). 
- 
 The robot which is used in SPL is the NAO by Aldebaran, a humanoid robot that features 11 degrees of freedom for the legs.
 
-In the RoboCup 2013 we used the NaoTH frameork for Nao by Berlin United (Hafner et al.)for various reasons: it features a modular code which makes it easy to expand, and provides a walking engine from which we can select a set of parameters for learning. 
+In the RoboCup 2013 we used the NaoTH frameork for NAO by Berlin United (Hafner et al.)for various reasons: it features a modular code which makes it easy to expand, and provides a walking engine from which we can select a set of parameters for learning. 
 
 The walking system is closed loop, and we used some specific parameters that we found the most important for the learning.
 Some examples are:
@@ -117,10 +115,12 @@ bodyOffset x --------------------
 bodyPitchOffset--------------------
 CoMHeight------------------------
 
-We choose to solve this problem using machine learning methods, as setting and testing all those parameters by hand is time-consuming and requires some rigorous methods to be applied. Also not all robots behave the same, and aging makes them less efficient. Automating the walking parameters settings makes all those factors automatically being taken into considerations. Also machine learning is an advanced and relevant topic in AI research and learning how to walk, and optimizing parameters in general, is a problem that is not limited to Nao robots, but applies to many other situations. -----------------------------------------
+We choose to solve this problem using machine learning methods, as setting and testing all those parameters by hand is time-consuming and requires some rigorous methods to be applied. Also not all robots behave the same, and aging makes them less efficient. Automating the walking parameters settings makes all those factors automatically being taken into considerations. Also machine learning is an advanced and relevant topic in AI research and learning how to walk, and optimizing parameters in general, is a problem that is not limited to NAO robots, but applies to many other situations. -----------------------------------------
 
 
-\section{?}
+\section{Results}
+Using the walking parameters that were result of a partial learning process using both simulation and real life environment, there has been a visible improvement in performance of our team of robots, compared to the latest competition (Iran Open). 
+ 
 
 
 
