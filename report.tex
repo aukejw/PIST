@@ -86,10 +86,10 @@ specifically about a game competition, the RoboCup Standard Platform League
 challenges in robotics, and robots can be used in many environments to solve
 different problems. By walking better robots can move faster and avoid hardware
 or environment damages. Walking well allows a robot to reach and function in
-places designed for humans. There's an even broader meaning in our work, which
-is studying the effectiveness of different machine learning methods in real
+places designed for humans. There's an even broader meaning in this work:
+To study the effectiveness of different machine learning methods in real
 life environments, which means taking into consideration factors such as field
-imperfections, sensor error, joints problems, and overheating. To work on this
+imperfections, sensor error, error in joint angles, and overheating of servo's. To work on this
 we built a specific framework which would enable us to manage the learning
 process and obtain data for evaluation. 
 
@@ -108,14 +108,16 @@ In the RoboCup 2013 we used the NaoTH frameork for NAO by Berlin United (Hafner 
 
 The walking system is closed loop, and we used some specific parameters that we found the most important for the learning.
 Some examples are:
--singleSupportTime: defines how long the nao stands on a foot for during the walking. This determines the walking frequency.
--stepHeight: defines the max distance between the ground and the base of the feet. If not too high improves stability, but given the low weight of the robots, if set over a certain limit, makes the robot bounce and actually lose stability. It also requires more work by the joints which translates in overheating and joints efficiency decreasing. 
--maxStep x,y, θ : define the maximum length (for walking forward), width (for strafing left and right) and angle (for turning left and rigth). Given a certain singleSupporTime, those parameters determine the speed of the movements. If set too high the result is a loss in stability.
-bodyOffset x --------------------
-bodyPitchOffset--------------------
-CoMHeight------------------------
+\begin{description}
+\item[singleSupportTime] defines how long the nao stands on a foot for during the walking. This determines the walking frequency.
+\item[stepHeight] defines the max distance between the ground and the base of the feet. If not too high improves stability, but given the low weight of the robots, if set over a certain limit, makes the robot bounce and actually lose stability. It also requires more work by the joints which translates in overheating and joints efficiency decreasing. 
+\item[maxStep$_{x,y, \theta }$] Defines the maximum length (for walking forward), width (for strafing left and right) and angle (for turning left and rigth). Given a certain singleSupporTime, those parameters determine the speed of the movements. If set too high the result is a loss in stability.
+\item[bodyOffset$_{x}$] The body's offset in x-direction (forward). Setting this to a positive number will result in positioning the body forward during walking, which may contribute to faster walking in the $x$-direction.
+\item[bodyPitchOffset] Indicates how much the body leans forward during walking with respect to the hips and legs. Similar to bodyOffset in that it can contribute to fast walks in $x$-direction. 
+\item[CoMHeight] Height of the center of mass of the robot during walking. The lower the body will be, the more stable the walk. However, the load on the leg joints will be higher and steps must be much smaller than for high center of mass. 
+\end{description}
 
-We choose to solve this problem using machine learning methods, as setting and testing all those parameters by hand is time-consuming and requires some rigorous methods to be applied. Also not all robots behave the same, and aging makes them less efficient. Automating the walking parameters settings makes all those factors automatically being taken into considerations. Also machine learning is an advanced and relevant topic in AI research and learning how to walk, and optimizing parameters in general, is a problem that is not limited to NAO robots, but applies to many other situations. -----------------------------------------
+We choose to solve this problem using machine learning methods, as setting and testing these parameters by hand is time-consuming and requires some rigorous methods to be applied. Also not all robots behave the same, and aging makes them less efficient. Automating the walking parameters settings makes all those factors automatically being taken into considerations. Also machine learning is an advanced and relevant topic in AI research and learning how to walk, and optimizing parameters in general, is a problem that is not limited to NAO robots, but applies to many other situations. -----------------------------------------
 
 
 \section{Results}
