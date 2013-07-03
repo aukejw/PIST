@@ -93,7 +93,7 @@ or environment damages. Walking well allows a robot to reach and function in
 places designed for humans. There's an even broader meaning in this work:
 To study the effectiveness of different machine learning methods in real
 life environments, which means taking into consideration factors such as field
-imperfections, sensor error, error in joint angles, and overheating of servo's. To work on this
+imperfections, sensor error, error in joint angles, and overheating of servos. To work on this
 we built a specific framework which would enable us to manage the learning
 process and obtain data for evaluation. 
 
@@ -117,20 +117,23 @@ from the winning team has to be published after the end of the competition.
 The robot which is used in SPL is the NAO by Aldebaran, a humanoid robot that features 11 degrees of freedom for the legs.
 
 \subsection{Walking engine}
-In the RoboCup 2013 we used the NaoTH frameork for NAO by Berlin United (Hafner et al.)for various reasons: it features a modular code which makes it easy to expand, and provides a walking engine from which we can select a set of parameters for learning. 
+In the RoboCup 2013 we used the NaoTH framework for NAO by Berlin United
+\citep{naothdescription} for various reasons: it features a modular code which
+makes it easy to expand, and provides a walking engine from which we can select
+a set of parameters for learning. 
 
 The walking system is closed loop, and we used some specific parameters that we found the most important for the learning.
 Some examples are:
 \begin{description}
-\item[singleSupportTime] Defines how long the nao stands on a foot for during the walking. This determines the walking frequency.
+\item[singleSupportTime] Defines how long the NAO stands on a foot for during the walking. This determines the walking frequency.
 \item[stepHeight] Defines the maximum distance between the ground and the base of the feet. If not too high improves stability, but given the low weight of the robots, if set over a certain limit, makes the robot bounce and actually lose stability. It also requires more work by the joints which translates in overheating and joints' efficiency decreasing. 
-\item[maxStep$_{x,y, \theta }$] Defines the maximum length (for walking forward), width (for strafing left and right) and angle (for turning left and rigth). Given a certain singleSupporTime, those parameters determine the speed of the movements. If set too high the result is a loss in stability.
+\item[maxStep$_{x,y, \theta }$] Defines the maximum length (for walking forward), width (for strafing left and right) and angle (for turning left and right). Given a certain singleSupporTime, those parameters determine the speed of the movements. If set too high the result is a loss in stability.
 \item[bodyOffset$_{x}$] The body's offset in x-direction (forward). Setting this to a positive number will result in positioning the body forward during walking, which may contribute to faster walking in the $x$-direction.
 \item[bodyPitchOffset] Indicates how much the body leans forward during walking with respect to the hips and legs. Similar to bodyOffset in that it can contribute to fast walks in $x$-direction. 
 \item[CoMHeight] Height of the center of mass of the robot during walking. The lower the body will be, the more stable the walk. However, the load on the leg joints will be higher and steps must be much smaller than for high center of mass. 
 \end{description}
 
-We choose to solve this problem using machine learning methods, as setting and testing these parameters manually is a time-consuming task and does not garantuee selection of an optimal parameter set. The differences between robots (for example actuator and sensor error) cause parameter settings to have a different effect on each robot. Also, the use of machine learning (and, more specifically, reinforcement learning) to learn robots to perform complex tasks is a relevant topic in AI research, and is a problem that is not limited to Nao robots, but applies to many other situations. 
+We choose to solve this problem using machine learning methods, as setting and testing these parameters manually is a time-consuming task and does not guarantee selection of an optimal parameter set. The differences between robots (for example actuator and sensor error) cause parameter settings to have a different effect on each robot. Also, the use of machine learning (and, more specifically, reinforcement learning) to learn robots to perform complex tasks is a relevant topic in AI research, and is a problem that is not limited to NAO robots, but applies to many other situations. 
 
 \subsection
 
@@ -142,6 +145,7 @@ We choose to solve this problem using machine learning methods, as setting and t
 
 \subsection{Results in RoboCup 2013}
 Using the walking parameters that were result of a partial learning process using both simulation and real life environment, there has been a visible improvement in performance of our team of robots, compared to the previous competition (Iran Open 2013  \footnote{http://2013.iranopen.ir/}). 
+
 \begin{figure}
 	\center
 	\includegraphics[width=.5\textwidth]{images/fitness}
