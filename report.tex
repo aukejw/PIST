@@ -116,7 +116,13 @@ from the winning team has to be published after the end of the competition.
 
 \subsection{Genetic algorithm}
 \citet{macalpineusing} have been successful in the use of a genetic algorithm
-to learn to walk on a NAO robot. A basic genetic algorithm contains at least the following:
+to learn to walk on a NAO robot. Their approach uses the CMA-ES policy search,
+and did an extensive search of a policy space consisting of 14 out of over 40
+parameters.
+\citet{meijer2012getting} has applied Finite Difference, Vanilla, Episodic
+Natural Actor Critic and a Genetic Algorithm to learn to kick a ball with a
+NAO.
+A basic genetic algorithm contains at least the following:
 \begin{itemize} 
 \item Properties that define an organism, the `genes' that can be altered to create new organisms.
 \item A population of organisms that is to be evaluated. 
