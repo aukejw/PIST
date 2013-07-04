@@ -141,7 +141,10 @@ The ways in which new generations are generated are similar to biological genera
 \end{itemize}
 
 
-For each generation there is a part of individuals that is copied to the next one. Some of those individuals are picked to generate new individuals using transimssion, crossover or mutation. It's important then to set a proper number of survivors and parents in order to have the highest quality features of fittest individuals pass to the next generation without however limiting the search space to a small area. 
+For each generation there is a part of individuals that is copied to the next one. Some of those individuals are picked to generate new individuals using transmission, crossover or mutation. It's important then to set a proper number of survivors and parents in order to have the highest quality features of fittest individuals pass to the next generation without however limiting the search space to a small area. 
+A genetic algorithm terminates if:
+-The number of evaluations has reached a fixed limit
+-The difference 
 
 
 
@@ -168,7 +171,6 @@ Some examples are:
 
 We choose to solve this problem using machine learning methods, as setting and testing these parameters manually is a time-consuming task and does not guarantee selection of an optimal parameter set. The differences between robots (for example actuator and sensor error) cause parameter settings to have a different effect on each robot. Also, the use of machine learning (and, more specifically, reinforcement learning) to learn robots to perform complex tasks is a relevant topic in AI research, and is a problem that is not limited to NAO robots, but applies to many other situations. 
 
-\subsection{Bla}
 
 \section{Implementation}
 The NaoTH framework is a modular framework that runs iteratively.  For the use of machine learning methods described in the previous section, it was extended by a module `MachineLearning', which serves as a generic input for different machine learning methods. It consists of multiple classes:
@@ -185,15 +187,15 @@ This module can be controlled through debug requests. Alongside the module, an i
 To manage and control the genetic algorithm we implemented a GUI from which we can set specific parameters:
 
 \begin{description}
-\item[crossoverRate] Defines the weight for crossover
-\item[mutationRate] Defines the weight for mutation
-\item[trasmitRate] Defines the weight for trasmission
+\item[crossoverRate] Defines the weight for crossover.
+\item[mutationRate] Defines the weight for mutation.
+\item[trasmitRate] Defines the weight for transmission.
 \item[maxGeneration] The maximum number of generations that can be evaluated before the learning process ends. 
 
 \item[parentsNum] The number of individuals from a generation that are used to obtain a new generation.
-\item[populationSize] The number of individuals for each generation
+\item[populationSize] The number of individuals for each generation.
 \item[resettingTime] Time before the NAO touches the ground after a previous evaluation has ended.
-\item[runningTime] Duration of an evaluation
+\item[runningTime] Duration of an evaluation.
 \item[standingTime] Time during the NAO stays still after touching the ground before starting a new evaluation. It's used to guarantee stability for the body when starting an evaluation.
 \item[surviveNum] The number of individuals that are copied from a generation to the next one. 
 
