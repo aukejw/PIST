@@ -91,11 +91,11 @@ challenges in robotics, and robots can be used in many environments to solve
 different problems. By walking better robots can move faster and avoid hardware
 or environment damages. Walking well allows a robot to reach and function in
 places designed for humans. There's an even broader meaning in this work:
-To study the effectiveness of different machine learning methods in real life
-environments, which means taking into consideration factors such as field
-imperfections, sensor error, error in joint angles, and overheating of servos.
-To work on this we built a specific framework which would enable us to manage
-the learning process and obtain data for evaluation. 
+To study the effectiveness of different machine learning methods in real
+life environments, which means taking into consideration factors such as field
+imperfections, sensor error, error in joint angles, and overheating of servos. To work on this
+we built a specific framework which would enable us to manage the learning
+process and obtain data for evaluation. 
 
 The RoboCup's aim is to promote Robotics and AI research in a playful and
 entertaining fashion that would appeal to non-expert people and potential
@@ -115,6 +115,7 @@ from the winning team has to be published after the end of the competition.
 \section{Related work}
 
 \subsection{Genetic algorithm}
+
 \citet{macalpineusing} have been successful in the use of a genetic algorithm
 to learn to walk on a NAO robot. Their approach uses the CMA-ES policy search,
 and did an extensive search of a policy space consisting of 14 out of over 40
@@ -123,6 +124,7 @@ parameters.
 Natural Actor Critic and a Genetic Algorithm to learn to kick a ball with a
 NAO.
 A basic genetic algorithm contains at least the following:
+
 \begin{itemize} 
 \item Properties that define an organism, the `genes' that can be altered to create new organisms.
 \item A population of organisms that is to be evaluated. 
@@ -142,9 +144,7 @@ The ways in which new generations are generated are similar to biological genera
 
 
 For each generation there is a part of individuals that is copied to the next one. Some of those individuals are picked to generate new individuals using transmission, crossover or mutation. It's important then to set a proper number of survivors and parents in order to have the highest quality features of fittest individuals pass to the next generation without however limiting the search space to a small area. 
-A genetic algorithm terminates if:
--The number of evaluations has reached a fixed limit
--The difference 
+
 
 
 
@@ -217,21 +217,8 @@ Those tasks can be combined to obtain more realistic and challenging action sequ
 % TODO pic interface + screen
 
 \subsection{Fitness Function}
-The walking distance is at the base of the fitness function used in the
-experiments. To emphasise that the robot should be able to walk in any
-direction, each evaluation consists of a set of tests, which can include
-walking forward, backward, sideways (strafing), rotating, and walking
-diagonally in any direction, we use the weighted harmonic mean (equation
-\ref{eq:harmonic}).
 
-\begin{equation}
-	\frac{\sum^{n}_{i=1} w_i} {\sum^{n}_{i=1}\frac{w_i}{x_i}}
-	\label{eq:harmonic}
-\end{equation}
-The weights allow for focusing more on specific tasks such as walking forwards.
-The framework allows for giving a negative reward when the robot falls over.
-The individual can be killed to save time and reduce the chance of damage in
-the case of testing in the real world.
+The fitness function used to run the experiments is based on walking distance. 
 
 \section{Results}
 
