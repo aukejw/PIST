@@ -52,7 +52,7 @@
 %}
 
 \author{
-N Girardi\\10457828\\\url{Nickog90@gmail.com} \and
+N. Girardi\\10457828\\\url{Nickog90@gmail.com} \and
 C. Kooijman\\5743028\\\url{Chiel999@gmail.com} \and
 A. J. Wiggers\\6036163\\\url{A.J.Wiggers@uva.nl}
 }
@@ -150,7 +150,10 @@ For each generation there is a part of individuals that is copied to the next on
 
 \section{Approach}
 \subsection{Platform}
-The robot which is used in SPL is Nao (version H25) by Aldebaran \citep{gouaillier2009mechatronic}, a humanoid, bipedal robot. It has inertia sensors that enable fall-detection, and a total of eight resistors in the two feet that allow for early detection of inbalance. 
+The robot which is used in SPL is NAO (version H25) by Aldebaran
+\citep{gouaillier2009mechatronic}, a humanoid, bipedal robot. It has inertia
+sensors that enable fall-detection, and a total of eight resistors in the two
+feet that allow for early detection of imbalance. 
 
 \subsection{Walking engine}
 In the RoboCup 2013 we used the NaoTH framework for NAO by Berlin United
@@ -176,7 +179,7 @@ We choose to solve this problem using machine learning methods, as setting and t
 The NaoTH framework is a modular framework that runs iteratively.  For the use of machine learning methods described in the previous section, it was extended by a module `MachineLearning', which serves as a generic input for different machine learning methods. It consists of multiple classes:
 \begin{description}
 \item[MachineLearning] The module class itself, handles debug requests from users.
-\item[LearnToWalk] The evaluation program, used by the module to test performance of specific parametersets.
+\item[LearnToWalk] The evaluation program, used by the module to test performance of specific parameter sets.
 \item[MachineLearningMethod] An abstract class that contains pure virtual functions, to be implemented by classes corresponding to specific machine learning methods.
 \end{description}
 
