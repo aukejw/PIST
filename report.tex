@@ -218,7 +218,21 @@ Those tasks can be combined to obtain more realistic and challenging action sequ
 
 \subsection{Fitness Function}
 
-The fitness function used to run the experiments is based on walking distance. 
+The walking distance is at the base of the fitness function used in the 
+experiments. To emphasise that the robot should be able to walk in any 
+direction, each evaluation consists of a set of tests, which can include
+walking forward, backward, sideways (strafing), rotating, and walking
+diagonally in any direction, we use the weighted harmonic mean (equation
+\ref{eq:harmonic}).
+
+\begin{equation}
+    \frac{∑ⁿᵢ=₁ wᵢ} {∑ⁿᵢ=₁\frac{wᵢ}{xᵢ}}
+    \label{eq:harmonic}
+\end{equation}
+The weights allow for focusing more on specific tasks such as walking forwards.
+The framework allows for giving a negative reward when the robot falls over.
+The individual can be killed to save time and reduce the chance of damage in
+the case of testing in the real world.
 
 \section{Results}
 
