@@ -134,6 +134,10 @@ The ways in which new generations are generated are similar to biological genera
 \end{itemize}
 
 
+
+
+
+
 \section{Approach}
 \subsection{Platform}
 The robot which is used in SPL is Nao (version H25) by Aldebaran \citep{gouaillier2009mechatronic}, a humanoid, bipedal robot. It has inertia sensors that enable fall-detection, and a total of eight resistors in the two feet that allow for early detection of inbalance. 
@@ -169,6 +173,38 @@ The NaoTH framework is a modular framework that runs iteratively.  For the use o
 
 This module can be controlled through debug requests. Alongside the module, an interface was created for easy parameter selection and the display of information during learning.
 
+\subsection{Learning Parameters}
+
+To manage and control the genetic algorithm we implemented a GUI from which we can set specific parameters:
+
+\begin{description}
+\item[crossoverRate] Defines the weight for crossover
+\item[mutationRate] Defines the weight for mutation
+\item[trasmitRate] Defines the weight for trasmission
+\item[maxGeneration] The maximum number of generations that can be evaluated before the learning process ends. 
+
+\item[parentsNum] The number of individuals from a generation that are used to obtain a new generation.
+\item[populationSize] The number of individuals for each generation
+\item[resettingTime] Time before the NAO touches the ground after a previous evaluation has ended.
+\item[runningTime] Duration of an evaluation
+\item[standingTime] Time during the NAO stays still after touching the ground before starting a new evaluation. It's used to guarantee stability for the body when starting an evaluation.
+\item[surviveNum] The number of individuals that are copied from a generation to the next one. 
+
+\end{description}
+
+\subsection{Evaluation Tasks}
+
+The evaluation tasks that were defined to run the tests are:
+
+\begin{itemize}
+\item Walk forward/backward 
+\item Strafe left/right 
+\item Turn right/left x degrees 
+\item Walk diagonally (walk forward/backward + strafe left/right) 
+
+\end{itemize}
+
+Those tasks can be combined to obtain more realistic and challenging action sequences.
 % TODO pic interface + screen
 
 \section{Results}
