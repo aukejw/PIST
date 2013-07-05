@@ -113,8 +113,17 @@ from the winning team has to be published after the end of the competition.
 \end{figure}
 
 \section{Related work}
-
-\subsection{Genetic algorithm}
+\citet{haasdijk2012never} remarks that in on-line learning, the average
+performance of the population is more important than the best performing
+individual, as there is always a population, so each individual should perform
+well. \citet{bongard2006resilient} suggest combining simulation and real-life
+evalualuation to find an approximate evaluation in the simulator before
+assessment in the real world. This way the poorest performers may be prevented
+from influencing the average performance.
+\citet{nordin1997line} note that genetic algorithms can be used in an on-line
+setting, where the evaluation will be different for each individual, as the
+averaging tendencies even out the effects of probabilistic sampling, resulting
+in a set of good solutions.
 
 \citet{macalpineusing} have been successful in the use of a genetic algorithm
 to learn to walk on a NAO robot. Their approach uses the CMA-ES policy search,
@@ -123,6 +132,8 @@ parameters.
 \citet{meijer2012getting} has applied Finite Difference, Vanilla, Episodic
 Natural Actor Critic and a Genetic Algorithm to learn to kick a ball with a
 NAO.
+
+\subsection{Genetic algorithm}
 A basic genetic algorithm contains at least the following:
 
 \begin{itemize} 
