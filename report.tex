@@ -146,7 +146,7 @@ The NaoTH framework is a modular framework that runs iteratively.  For the use o
 	\center
 	\includegraphics[width=\textwidth]{images/GUI}
 	\caption{Example of the graphical user interface.}
-	\label{fig:avg}
+	\label{fig:gui}
 \end{figure}
 
 \begin{description}
@@ -159,7 +159,7 @@ This module can be controlled through debug requests. Alongside the module, an i
 
 \subsection{Learning Parameters}
 
-To manage and control the genetic algorithm we implemented a GUI from which we can set specific parameters:
+To set the genetic algorithm we use specific parameters:
 
 \begin{description}
 \item[crossoverRate] Defines the weight for crossover.
@@ -208,6 +208,21 @@ The weights allow for focusing more on specific tasks such as walking forwards.
 The framework allows for giving a negative reward when the robot falls over.
 The individual can be killed to save time and reduce the chance of damage in
 the case of testing in the real world.
+
+\subsection{Graphical User Interface}
+To manage and control the learning process we built a GUI in Java (figure \ref{fig:gui}). 
+The main implemented functions are:
+
+\begin{description}
+\item[Learn] Starts the genetic algorithm
+\item[Select the learning method]
+\item[List] Shows the list of learning parameters currently in use
+\item[GetInfo] Shows relevant information such as the current generation number, the current individual number, and the walking parameters for the fittest individual in the current generation.
+\end{description}
+
+
+
+
 
 \section{Results}
 
