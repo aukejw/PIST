@@ -140,6 +140,14 @@ We choose to solve this problem using machine learning methods, as setting and t
 
 \section{Implementation}
 The NaoTH framework is a modular framework that runs iteratively.  For the use of machine learning methods described in the previous section, it was extended by a module `MachineLearning', which serves as a generic input for different machine learning methods. It consists of multiple classes:
+
+\begin{figure}
+	\center
+	\includegraphics[width=\textwidth]{images/GUI}
+	\caption{Example of the graphical user interface.}
+	\label{fig:avg}
+\end{figure}
+
 \begin{description}
 \item[MachineLearning] The module class itself, handles debug requests from users.
 \item[LearnToWalk] The evaluation program, used by the module to test performance of specific parameter sets.
