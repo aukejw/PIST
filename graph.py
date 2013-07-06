@@ -2,25 +2,49 @@ import sys
 import glob
 import os
 
+
+import re
+
+def tryint(s):
+    try:
+        return int(s)
+    except:
+        return s
+
+def alphanum_key(s):
+    """ Turn a string into a list of string and number chunks.
+    "z23a" -> ["z", 23, "a"]
+    """
+    return [ tryint(c) for c in re.split('([0-9]+)', s) ]
+
+def sort_nicely(l):
+    """ Sort the given list in the way that humans expect.
+    """
+    l.sort(key=alphanum_key)
+
 if __name__ == "__main__":
     print "Searching directory {0}.".format( sys.argv[1] )
 
     avg = []
     mxs = []
-    for filename in sorted(glob.glob(os.path.join(sys.argv[1], '*.txt'))):
+    filenames = glob.glob(os.path.join(sys.argv[1], '*.txt'))
+
+    sort_nicely(filenames)
+
+    for filename in filenames:
         f = open(filename)
         total = 0
         individuals = 0
-        max = 0
+        maximum = 0
         for line in f:
             if "------------------------------------" in line:
                 num = float(line[:-37])
                 total += num
-                if num > max:
-                    max = num
+                if num > maximum:
+                    maximum = num
                 individuals += 1
-        avg.append(total / individuals)
-        mxs.append(max)
+        avg.append(total / float(individuals))
+        mxs.append(maximum)
 
     import numpy as np
     import matplotlib.pyplot as plt
@@ -35,6 +59,6 @@ if __name__ == "__main__":
     ysmax = np.array(mxs)
 
     ax.plot(xs, ysavg)
-    #ax.plot(xs, ysmax)
-
     plt.show()
+
+
