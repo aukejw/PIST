@@ -124,7 +124,7 @@ A method that has successfully been used in similar scenarios'  TODO CITE is the
 \item Learning parameters that influence how new generations are formed. 
 \end{itemize}
 
-Through the fitness function and corresponding evaluations, the search can be guided towards a specific direction. A disadvantage of this method is that the fitness function must be user-specified, which may be hard to do in tasks with multiple objectives or in cases where the criteria for performance are unclear. 
+Through the fitness function and corresponding evaluations, the search can be guided towards a specific direction. A disadvantage of this method is that the fitness function must be user-specified, which may be hard to do in tasks with multiple objectives or in cases where the criteria for performance are unclear.
 
 The ways in which new generations are generated are similar to biological generation of offspring.  
 \begin{itemize} 
@@ -136,7 +136,7 @@ The ways in which new generations are generated are similar to biological genera
 
 \section{Approach}
 \subsection{Platform}
-The robot which is used in SPL is Nao (version H25) by Aldebaran \citep{gouaillier2009mechatronic}, a humanoid, bipedal robot. It has inertia sensors that enable fall-detection, and a total of eight resistors in the two feet that allow for early detection of inbalance. 
+The robot which is used in SPL is Nao (version H25) by Aldebaran \citep{gouaillier2009mechatronic}, a humanoid, bipedal robot. It has inertia sensors that enable fall-detection, and a total of eight resistors in the two feet that allow for early detection of inbalance. Both of these are used in the evaluation of parameter settings.
 
 \subsection{Walking engine}
 In the RoboCup 2013 we used the NaoTH framework for NAO by Berlin United
@@ -157,7 +157,9 @@ Some examples are:
 
 We choose to solve this problem using machine learning methods, as setting and testing these parameters manually is a time-consuming task and does not guarantee selection of an optimal parameter set. The differences between robots (for example actuator and sensor error) cause parameter settings to have a different effect on each robot. Also, the use of machine learning (and, more specifically, reinforcement learning) to learn robots to perform complex tasks is a relevant topic in AI research, and is a problem that is not limited to NAO robots, but applies to many other situations. 
 
-\subsection{Bla}
+\subsection{Fitness function and evaluation}
+As the resulting parameter settings are to be used in a real game, and the ultimate goal is to win the game, the best evaluation for a parameter set would be to play a match and use the outcome as feedback. However, this would take a long time, and it can be deduced that a fast and stable walk will in general result in high performance during matches. Therefore, the evaluation 
+
 
 \section{Implementation}
 The NaoTH framework is a modular framework that runs iteratively.  For the use of machine learning methods described in the previous section, it was extended by a module `MachineLearning', which serves as a generic input for different machine learning methods. It consists of multiple classes:
