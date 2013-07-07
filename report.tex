@@ -142,13 +142,6 @@ This problem is to be solved using machine learning methods, as setting and test
 \section{Implementation}
 For the use of machine learning methods described in the previous section, the NaoTH framework was extended with a module `MachineLearning', which serves as a generic input for different machine learning methods. It consists of multiple classes:
 
-\begin{figure}
-	\center
-	\includegraphics[width=\textwidth]{images/GUI}
-	\caption{Example of the graphical user interface (right) and SimSpark (left).}
-	\label{fig:gui}
-\end{figure}
-
 \begin{description}
 \item[MachineLearning] The module class itself, handles debug requests from users.
 \item[LearnToWalk] The evaluation program, used by the module to test performance of specific parameter sets.
@@ -208,7 +201,6 @@ The weights allow for focusing more on specific tasks such as walking forwards.
 The framework allows for giving a negative reward when the robot falls over.
 The individual can be killed to save time and reduce the chance of damage in
 the case of testing in the real world.
-
 \subsection{Graphical User Interface}
 The learning process is managed and controlled through a GUI implemented in Java (figure \ref{fig:gui}). 
 Its main functions are:
@@ -219,6 +211,14 @@ Its main functions are:
 \item[List] Shows the list of learning parameters currently in use
 \item[GetInfo] Shows relevant information such as the current generation number, the current individual number, and the walking parameters for the fittest individual in the current generation.
 \end{description}
+
+
+\begin{figure}[h!]
+	\center
+	\includegraphics[width=\textwidth]{images/GUI}
+	\caption{Example of the graphical user interface (right) and SimSpark (left).}
+	\label{fig:gui}
+\end{figure}
 
 \subsection{Simulator}
 The used simulator is SimSpark \footnote{\url{http://simspark.sourceforge.net/wiki/index.php/Main_Page}}, which is the official simulator for the RoboCup simulation leagues. It was designed to be able to simulate a large number of robots, which proves useful in machine learning tasks. A disadvantage of this simulator is that the models are 
@@ -244,12 +244,6 @@ To test the effectiveness of the method, it was first applied to improve the wal
 It should be noted that the first generation of each test contains only copies of the first individual, making 
 the performance for this generation prone to error. 
 
-\begin{figure}
-	\center
-	\includegraphics[width=.7\textwidth]{images/relevant_avg.pdf}
-	\caption{Average fitness for different parameter settings.}
-	\label{fig:avgforward}
-\end{figure}
 
 \subsection{Experiment: Holonomic walk}
 In this experiment, machine learning was applied to improve the omnidirectional walk of the Nao. Evaluation was performed by forcing Nao to execute multiple different subtasks, which were to be performed in quick succession - with no pause in between tasks. The tasks were chosen so that they would closely resemble actions during a football match. There was no bias toward any of the evaluations, with each phase lasting 7 seconds, although the order of the tasks would always be the same. Falling down was penalized, and caused the episode to finish immediately. A parameter set was evaluated based on performance in each of these tasks:
@@ -263,6 +257,14 @@ In this experiment, machine learning was applied to improve the omnidirectional 
 The graph in figure \ref{fig:avg} shows how the average fitness of the population changes over time. The shown results are promising, as the fitness is generally growing in the first 25 generations. 
 
 The graph in figure \ref{fig:max} shows the fitness of the fittest individual in the population over time, which is monotonically increasing. Reason for this is that the surviving group of each population, of which the fittest individual is part of, is not re-evaluated. 
+
+\begin{figure}[h!]
+	\center
+	\includegraphics[width=.7\textwidth]{images/relevant_avg.pdf}
+	\caption{Average fitness for different parameter settings.}
+	\label{fig:avgforward}
+\end{figure}
+
 
 \subsection{Evaluation}
 Results for both experiments indicate an incline in performance. As can be seen in figure \ref{fig:avgforward}, it proved useful to limit mutation, as random trials usually ended up in organisms with lower fitness than generations created using different settings. Test NoMutation is used as a benchmark, needed because of noise in the evaluation, by setting the mutationrate to zero. This ensures that each generation contained only exact copies of the very first organism. Its low performance at generation 0 can be explained by this noise as well, as the first generation contained only copies of the initial organism. Although setting transmission-, crossover- and mutationrate equal resulted in nearly the same performance, setting crossover-rate relatively high resulted in higher fitness. 
