@@ -34,6 +34,15 @@
 \end{abstract}
 
 \section{Introduction}
+The RoboCup's aim is to promote Robotics and AI research in a playful and
+entertaining fashion that would appeal to non-expert people and potential
+future generations of researchers \cite{kitano1997robocup}. The event is also
+an occasion for insiders to share and expand their knowledge. The competition
+factor plays a role by creating an environment which stimulates improvement.
+The fact that contending in the SPL consists mainly of writing software, helps
+this sharing process, as code from the winning team has to be published after
+the end of the competition. 
+
 The main focus of the project is improving the walking motion of NAO robots by
 optimizing a set of parameters for an existing walking engine. This research is
 specifically about a game competition, the RoboCup Standard Platform League
@@ -46,15 +55,6 @@ environments, which means taking into consideration factors such as field
 imperfections, sensor error, error in joint angles, and overheating of servos.
 To facilitate this research, a specific framework was created, which allows
 researchers to manage the learning process and obtain data for evaluation. 
-
-The RoboCup's aim is to promote Robotics and AI research in a playful and
-entertaining fashion that would appeal to non-expert people and potential
-future generations of researchers \cite{kitano1997robocup}. The event is also
-an occasion for insiders to share and expand their knowledge. The competition
-factor plays a role by creating an environment which stimulates improvement.
-The fact that contending in the SPL consists mainly of writing software, helps
-this sharing process, as code from the winning team has to be published after
-the end of the competition. 
 
 \begin{figure}
 	\center
@@ -134,7 +134,14 @@ Some examples are:
 \item[CoMHeight] Height of the center of mass of the robot during walking. The lower the body will be, the more stable the walk. However, the load on the leg joints will be higher and steps must be much smaller than for high center of mass. 
 \end{description}
 
-This problem is to be solved using machine learning methods, as setting and testing these parameters manually is a time-consuming task and does not guarantee selection of an optimal parameter set. The differences between robots (for example actuator and sensor error) cause parameter settings to have a different effect on each robot. Also, the use of machine learning (and, more specifically, reinforcement learning) to learn robots to perform complex tasks is a relevant topic in AI research, and is a problem that is not limited to NAO robots, but applies to many other situations. 
+This problem is to be solved using machine learning methods, as setting and
+testing these parameters manually is a time-consuming task and does not
+guarantee selection of an optimal parameter set. The differences between robots
+(for example actuator and sensor error) cause parameter settings to have a
+different effect on each robot. Also, the use of machine learning (and, more
+specifically, reinforcement learning) to learn robots to perform complex tasks
+is a relevant topic in AI research, and is a problem that is not limited to NAO
+robots, but applies to many other situations. 
 
 %\subsection{Fitness function and evaluation}
 %As the resulting parameter settings are to be used in a real game, and the ultimate goal is to win the game, the best evaluation for a %parameter set would be to play a match and use the outcome as feedback. However, this would take a long time, and it can be deduced that %a fast and stable walk will in general result in high performance during matches. Therefore, the evaluation 
