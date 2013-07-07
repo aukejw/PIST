@@ -221,6 +221,12 @@ Its main functions are:
 \item[GetInfo] Shows relevant information such as the current generation number, the current individual number, and the walking parameters for the fittest individual in the current generation.
 \end{description}
 
+\subsection{Simulator}
+The used simulator is SimSpark \footnote{\url{http://simspark.sourceforge.net/wiki/index.php/Main_Page}}, which is the official simulator for the RoboCup simulation leagues. It was designed to be able to simulate a large number of robots, which proves useful in machine learning tasks. A disadvantage of this simulator is that the models are 
+different from the real robots, so that learned parameters can not be used
+directly in real life. A second disadvantage is that the simulator does not
+guarantee identical results for repeated simulation runs, as it is influenced
+by network delays on the machine that ruidenticalns the server. 
 
 \begin{figure}[h!]
 	\center
@@ -244,7 +250,7 @@ To test the effectiveness of the method, it was first applied to improve the wal
 
 \vspace{4mm}
 \begin{tabular}{c | c          c           c           c         c             c  }
- Figure      &  Transmission & Crossover & Mutation & \# Parents & \# Survivors & Populationsize \\
+ Figure      &  Transmission & Crossover & Mutation & \# Parents & \# Survivors & Population size \\
  \hline
  Mutation    &  0.1              & 0.1           & 0.8          &  10  & 10  & 50  \\ 
  NoMutation  &  0.5              & 0.5           & 0.0          &  10  & 10  & 50  \\
@@ -279,7 +285,7 @@ The graph in figure \ref{fig:avg} shows how the average fitness of the populatio
 
 
 \subsection{Evaluation}
-Results for both experiments indicate an incline in performance. As can be seen in figure \ref{fig:avgforward}, it proved useful to limit mutation, as random trials usually ended up in organisms with lower fitness than generations created using different settings. Test NoMutation is used as a benchmark, needed because of noise in the evaluation, by setting the mutationrate to zero. This ensures that each generation contained only exact copies of the very first organism. Its low performance at generation 0 can be explained by this noise as well, as the first generation contained only copies of the initial organism. Although setting transmission-, crossover- and mutationrate equal resulted in nearly the same performance, setting crossover-rate relatively high resulted in higher fitness. 
+Results for both experiments indicate an incline in performance. As can be seen in figure \ref{fig:avgforward}, it proved useful to limit mutation, as random trials usually ended up in organisms with lower fitness than generations created using different settings. Test NoMutation is used as a benchmark, needed because of noise in the evaluation, by setting the mutation rate to zero. This ensures that each generation contained only exact copies of the very first organism. Its low performance at generation 0 can be explained by this noise as well, as the first generation contained only copies of the initial organism. Although setting transmission-, crossover- and mutation rate equal resulted in nearly the same performance, setting crossover-rate relatively high resulted in higher fitness. 
 
 The fitness function makes it so that performance in the second experiment can not be directly compared to the first experiment, however, the respective relative increases in performance can be compared. The second experiment shows a more steady increase in performance. This can be explained by the complexity of the task: The chance that a mutation improves performance in just the task of walking forward is higher than it improving performance in multiple subtasks, all of which contribute to the total fitness of the organism. 
 
@@ -306,6 +312,20 @@ In this project, the effectiveness of evolutionary algorithms is tested by apply
 \section{Future Work} 
 Online learning, which is currently impossible, may prove to be useful for several reasons. First, there are some conditions and situations that are difficult to recreate in lab or in simulation. Also, the learning process is time consuming and by using online learning we can exploit matches as an opportunity to have more time to improve our results. To do that it's necessary to classify different kind of actions sequences in order to learn different sets of parameters for each of them. Also we need to find a way to predict what kind of sequence of actions is about to be performed in order to chose what set of parameters to apply during a match. We think this would give a big improvement to our game as different actions, such as walking forward or turning, work better with different settings. It would be easy to implement different parameters for each action, but that wouldn't make such a difference as working on different sets of actions. That's because actions such as staying still don't require any particular parameter set per se, but if combined with other actions such as walking forward (so, for example, doing a few steps and stop) specific values are needed for the parameters. 
 
+\newpage
+
+\section{Conclusion}
+In this project, the effectiveness of evolutionary algorithms is tested by
+applying these to optimize walking parameters for a bipedal robot. At the start
+of the learning process, a working set of walking parameters is available in an
+existing framework, meaning that not the joint values but the parameters for
+the framework must be optimized. Different parameter settings are tried to
+learn the optimal parameter-set for a single task, namely walking forward.
+Based on this first experiment, the best found settings are used to learn an
+optimal parameter-set for a holonomic walk. Results for both experiments
+indicate that there is indeed an improvement in performance, but that starting
+with a suboptimal set makes it so that the resulting increase in performance is
+small.
 
 
 \bibliographystyle{plain}
