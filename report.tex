@@ -2,7 +2,7 @@
 \usepackage{bnaic}
 \usepackage{graphicx}
 \usepackage{natbib}
-
+\usepackage{hyperref}
 
 \title{\huge Automated Optimization of Walking Parameters for the NAO Humanoid Robot}
 
@@ -115,7 +115,7 @@ For each generation there can also be a part of individuals that is directly cop
 
 \section{Approach}
 \subsection{Platform}
-The robot which is used in SPL is Nao (version H25) by Aldebaran \citep{gouaillier2009mechatronic}, a humanoid, bipedal robot. It has inertia sensors that enable fall-detection, and a total of eight resistance sensors in the two feet that allow for early detection of imbalance. Both of these are used in the evaluation of parameter settings. Figure \ref{fig:joints} shows an overview of the NAO's joints.
+The robot used in SPL is NAO (version H25) by Aldebaran \citep{gouaillier2009mechatronic}, a humanoid, bipedal robot. It has inertia sensors that enable fall-detection, and a total of eight resistance sensors in the two feet that allow for early detection of imbalance. Both of these are used in the evaluation of parameter settings. Figure \ref{fig:joints} shows an overview of the NAO's joints.
 
 \subsection{Walking engine}
 In the RoboCup 2013 we used the NaoTH framework for NAO by Berlin United
@@ -145,7 +145,7 @@ The NaoTH framework is a modular framework that runs iteratively.  For the use o
 \begin{figure}
 	\center
 	\includegraphics[width=\textwidth]{images/GUI}
-	\caption{Example of the graphical user interface.}
+	\caption{Example of the graphical user interface (right) and SimSpark (left).}
 	\label{fig:gui}
 \end{figure}
 
@@ -210,8 +210,8 @@ The individual can be killed to save time and reduce the chance of damage in
 the case of testing in the real world.
 
 \subsection{Graphical User Interface}
-To manage and control the learning process we built a GUI in Java (figure \ref{fig:gui}). 
-The main implemented functions are:
+The learning process is managed and controlled through a GUI implemented in Java (figure \ref{fig:gui}). 
+Its main functions are:
 
 \begin{description}
 \item[Learn] Starts the genetic algorithm
@@ -219,6 +219,10 @@ The main implemented functions are:
 \item[List] Shows the list of learning parameters currently in use
 \item[GetInfo] Shows relevant information such as the current generation number, the current individual number, and the walking parameters for the fittest individual in the current generation.
 \end{description}
+
+\subsection{Simulator}
+The used simulator is SimSpark \footnote{\url{http://simspark.sourceforge.net/wiki/index.php/Main_Page}}, which is the official simulator for the RoboCup simulation leagues. It was designed to be able to simulate a large number of robots, which proves useful in machine learning tasks. A disadvantage of this simulator is that the models are 
+different from the real robots, so that learned parameters can not be used in real life without some tweaking. A second disadvantage is that the simulator does not garantuee identical results for repeated simulation runs, as it is influenced by network delays on the machine that ruidenticalns the server. 
 
 \section{Results}
 To test the performance of the implemented framework, two separate experiments were conducted. Both will be described below. For both of these, the performance on each task is measured by taking the traversed distance as an evaluation score. Falling down is penalized, and results in subtracting 1000 from fitness (empirically chosen), so that organisms that fall early in the episode are punished more severely than those that fall at the end of their task.
