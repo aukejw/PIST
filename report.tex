@@ -37,10 +37,9 @@
 The main focus of the project is improving the walking motion of NAO robots by
 optimizing a set of parameters for an existing walking engine. Our research is
 specifically about a game competition, the RoboCup Standard Platform League
-(SPL), but has also a broader value. Walking is indeed one of the main
-challenges in robotics, and robots can be used in many environments to solve
-different problems. By walking better, robots can move faster and avoid hardware
-or environment damages. Walking well allows a robot to reach and function in
+(SPL), but has also a broader value. Walking for (bipedal) robots is one of the main
+challenges in robotics. Improvements allows them to move faster and avoid damage 
+to hardware or environment, and enables them to reach and function in
 places designed for humans. There is an even broader meaning in this work:
 To study the effectiveness of different machine learning methods in real
 life environments, which means taking into consideration factors such as field
@@ -65,7 +64,8 @@ the end of the competition.
 \end{figure}
 
 \section{Related work}
-Haasdijk remarks that in on-line learning, the average
+Multiple methods that combine elements of learning in real life and learning in simulation
+have been proposed. Haasdijk remarks that in online learning, the average
 performance of the population is more important than the best performing
 individual, as there is always a population, so each individual should perform
 well \cite{haasdijk2012never}. Bongard et al. suggest combining simulation
@@ -83,7 +83,8 @@ and did an extensive search of a policy space consisting of 14 out of over 40
 parameters \cite{macalpineusing}.
 Meijer has applied Finite Difference, Vanilla, Episodic
 Natural Actor Critic and a Genetic Algorithm to learn to kick a ball with a
-NAO\cite{meijer2012getting}.
+NAO \cite{meijer2012getting}. It should be noted that these methods were applied 
+to improve performance of an already existing kicking motion. 
 
 \subsection{Genetic algorithm}
 A basic genetic algorithm contains at least the following:
@@ -165,12 +166,12 @@ To set the genetic algorithm we use specific parameters:
 \item[trasmitRate] Defines the weight for transmission.
 \item[maxGeneration] The maximum number of generations that can be evaluated before the learning process ends. 
 
-\item[parentsNum] The number of individuals from a generation that are used to obtain a new generation.
-\item[populationSize] The number of individuals for each generation.
-\item[resettingTime] Time before the NAO touches the ground after a previous evaluation has ended.
-\item[runningTime] Duration of an evaluation.
-\item[standingTime] Time during the NAO stays still after touching the ground before starting a new evaluation. It's used to guarantee stability for the body when starting an evaluation.
-\item[surviveNum] The number of individuals that are copied from a generation to the next one. 
+\item[ResettingTime] Time before the Nao touches the ground after a previous evaluation has ended.
+\item[RunningTime] Duration of an evaluation.
+\item[StandingTime] Time during the Nao stays still after touching the ground before starting a new evaluation. It's used to guarantee stability for the body when starting an evaluation.
+\item[Number of survivors] The number of individuals that are copied from a generation to the next one. 
+\item[Number of parents] The number of individuals from a generation that are used to obtain a new generation.
+\item[Size of population] The number of individuals for each generation.
 
 \end{description}
 
@@ -223,8 +224,24 @@ The main implemented functions are:
 To test the performance of the implemented framework, two separate experiments were conducted. Both will be described below. 
 
 \subsection{Experiment: Walking forward}
-To test the effectiveness of the method, it was first applied to improve the walk in the $x$-direction. The effect of different parameter settings can be seen in figure \ref{fig:avgforward}. 
+To test the effectiveness of the method, it was first applied to improve the walk in the $x$-direction. The effect of different parameter settings can be seen in figure \ref{fig:avgforward}. For each The settings for these experiments were as follows:
 
+
+\begin{tabular}{c | c          c           c           c         c             c  }
+ Figure      &  Transmission & Crossover & Mutation & \# Parents & \# Survivors & Populationsize \\
+ \hline
+ Mutation    &  0.1              & 0.1           & 0.8          & 10 & 10  & 50  \\
+ NoMutation  &  0.5              & 0.5           & 0.0          &  10 & 10  & 50  \\
+ Crossover   &  0.1              & 0.8           & 0.1          &  10 & 10  & 50  \\
+ Equal       &  0.1              & 0.1           & 0.1          &  10 & 10  & 50  \\
+\end{tabular}
+
+\begin{figure}
+	\center
+	\includegraphics[width=.8\textwidth]{images/relevant_avg.png}
+	\caption{Average fitness for different parameter settings.}
+	\label{fig:avgforward}
+\end{figure}
 
 \subsection{Experiment: Holonomic walk}
 In this experiment, machine learning was applied to improve the omnidirectional walk of the Nao. Evaluation was performed by forcing Nao to execute multiple different subtasks, which were to be performed in quick succession - with no pause in between tasks. The tasks were chosen so that they would closely resemble actions during a football match. There was no bias toward any of the evaluations, with each phase lasting 7 seconds, although the order of the tasks would always be the same. Falling down was penalized, and causedd the episode to finish immediately. A parameter set was evaluated based on performance in each of these tasks:

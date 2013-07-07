@@ -33,7 +33,7 @@ def parse_one_dir(dirname, maxgen_nr):
     if len(filenames) < maxgen_nr:
         print "Insufficient generations in '{0}'".format(dirname)
 
-    for filename in filenames[:maxgen_nr]:
+    for filename in filenames[:maxgen_nr+1]:
         f = open(filename)
         total = 0
         individuals = 0
@@ -54,8 +54,15 @@ if __name__ == "__main__":
         raise Exception('Usage: graph.py top_dirname maxgeneration')
 
     print "Searching directory {0}.".format( sys.argv[1] )
-    dirnames = [o for o in os.listdir(sys.argv[1]) if os.path.isdir(o)]
+    dirnames = []
+    for d in [o for o in os.listdir(sys.argv[1]) if os.path.isdir(o)]:
+        print 'Add {0} (Y/n)?'.format(d)
+        inp = raw_input()
+        if inp == 'y' or inp == 'Y' or inp == '':
+            dirnames.append(d)
+
     colors = iter( cm.rainbow(np.linspace(0, 1, len(dirnames))))
+
 
     fig_max = plt.figure()
     ax_max = fig_max.gca()
@@ -78,7 +85,5 @@ if __name__ == "__main__":
 
 
     plt.legend(['{}'.format(dirname) for dirname in dirnames], loc=8,
-           ncol=2, mode="expand", bbox_to_anchor=(1.05, 1), borderaxespad=0.)
+           ncol=3, mode="expand")
     plt.show()
-
-
