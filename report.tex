@@ -34,6 +34,19 @@
 \end{abstract}
 
 \section{Introduction}
+The main focus of the project is improving the walking motion of NAO robots by
+optimizing a set of parameters for an existing walking engine. Our research is
+specifically about a game competition, the RoboCup Standard Platform League
+(SPL), but has also a broader value. Walking for (bipedal) robots is one of the main
+challenges in robotics. Improvements allows them to move faster and avoid damage 
+to hardware or environment, and enables them to reach and function in
+places designed for humans. There is an even broader meaning in this work:
+To study the effectiveness of different machine learning methods in real
+life environments, which means taking into consideration factors such as field
+imperfections, sensor error, error in joint angles, and overheating of servos.
+To facilitate this research, a specific framework was created, which allows
+researchers to manage the learning process and obtain data for evaluation. 
+
 The RoboCup's aim is to promote Robotics and AI research in a playful and
 entertaining fashion that would appeal to non-expert people and potential
 future generations of researchers \cite{kitano1997robocup}. The event is also
@@ -42,19 +55,6 @@ factor plays a role by creating an environment which stimulates improvement.
 The fact that contending in the SPL consists mainly of writing software, helps
 this sharing process, as code from the winning team has to be published after
 the end of the competition. 
-
-The main focus of the project is improving the walking motion of NAO robots by
-optimizing a set of parameters for an existing walking engine. This research is
-specifically about a game competition, the RoboCup Standard Platform League
-(SPL), but has also a broader value. Walking for (bipedal) robots is one of the
-main challenges in robotics. Improvements allow them to move faster and avoid
-damage to hardware or environment, and enable them to reach and function in
-places designed for humans. There is an even broader meaning in this work: To
-study the effectiveness of different machine learning methods in real life
-environments, which means taking into consideration factors such as field
-imperfections, sensor error, error in joint angles, and overheating of servos.
-To facilitate this research, a specific framework was created, which allows
-researchers to manage the learning process and obtain data for evaluation. 
 
 \begin{figure}
 	\center
@@ -134,14 +134,7 @@ Some examples are:
 \item[CoMHeight] Height of the center of mass of the robot during walking. The lower the body will be, the more stable the walk. However, the load on the leg joints will be higher and steps must be much smaller than for high center of mass. 
 \end{description}
 
-This problem is to be solved using machine learning methods, as setting and
-testing these parameters manually is a time-consuming task and does not
-guarantee selection of an optimal parameter set. The differences between robots
-(for example actuator and sensor error) cause parameter settings to have a
-different effect on each robot. Also, the use of machine learning (and, more
-specifically, reinforcement learning) to learn robots to perform complex tasks
-is a relevant topic in AI research, and is a problem that is not limited to NAO
-robots, but applies to many other situations. 
+This problem is to be solved using machine learning methods, as setting and testing these parameters manually is a time-consuming task and does not guarantee selection of an optimal parameter set. The differences between robots (for example actuator and sensor error) cause parameter settings to have a different effect on each robot. Also, the use of machine learning (and, more specifically, reinforcement learning) to learn robots to perform complex tasks is a relevant topic in AI research, and is a problem that is not limited to NAO robots, but applies to many other situations. 
 
 %\subsection{Fitness function and evaluation}
 %As the resulting parameter settings are to be used in a real game, and the ultimate goal is to win the game, the best evaluation for a %parameter set would be to play a match and use the outcome as feedback. However, this would take a long time, and it can be deduced that %a fast and stable walk will in general result in high performance during matches. Therefore, the evaluation 
@@ -198,15 +191,13 @@ experiments. To emphasise that the robot should be able to walk in any
 direction, each evaluation consists of a set of tests, which can include
 walking forward, backward, sideways (strafing), rotating, and walking
 diagonally in any direction, we use the weighted harmonic mean (equation
-\ref{eq:harmonic}). It rewards increases closer to 0 more than at higher
-values, which should result in a behaviour that should at least be able to
-perform each task to a certain minimum level.
+\ref{eq:harmonic}).
 
 \begin{equation}
 	\frac{\sum^{n}_{i=1} w_i} {\sum^{n}_{i=1}\frac{w_i}{x_i}}
     \label{eq:harmonic}
 \end{equation}
-The weights allow for focussing more on specific tasks such as walking forwards.
+The weights allow for focusing more on specific tasks such as walking forwards.
 The framework allows for giving a negative reward when the robot falls over.
 The individual can be killed to save time and reduce the chance of damage in
 the case of testing in the real world.
@@ -221,12 +212,6 @@ Its main functions are:
 \item[GetInfo] Shows relevant information such as the current generation number, the current individual number, and the walking parameters for the fittest individual in the current generation.
 \end{description}
 
-\subsection{Simulator}
-The used simulator is SimSpark \footnote{\url{http://simspark.sourceforge.net/wiki/index.php/Main_Page}}, which is the official simulator for the RoboCup simulation leagues. It was designed to be able to simulate a large number of robots, which proves useful in machine learning tasks. A disadvantage of this simulator is that the models are 
-different from the real robots, so that learned parameters can not be used
-directly in real life. A second disadvantage is that the simulator does not
-guarantee identical results for repeated simulation runs, as it is influenced
-by network delays on the machine that ruidenticalns the server. 
 
 \begin{figure}[h!]
 	\center
@@ -237,10 +222,7 @@ by network delays on the machine that ruidenticalns the server.
 
 \subsection{Simulator}
 The used simulator is SimSpark \footnote{\url{http://simspark.sourceforge.net/wiki/index.php/Main_Page}}, which is the official simulator for the RoboCup simulation leagues. It was designed to be able to simulate a large number of robots, which proves useful in machine learning tasks. A disadvantage of this simulator is that the models are 
-different from the real robots, so that learned parameters can not be used
-directly in real life. A second disadvantage is that the simulator does not
-garantuee identical results for repeated simulation runs, as it is influenced
-by network delays on the machine that ruidenticalns the server. 
+different from the real robots, so that learned parameters can not be used in real life without some tweaking. A second disadvantage is that the simulator does not garantuee identical results for repeated simulation runs, as it is influenced by network delays on the machine that ruidenticalns the server. 
 
 \section{Results}
 To test the performance of the implemented framework, two separate experiments were conducted. Both will be described below. For both of these, the performance on each task is measured by taking the traversed distance as an evaluation score. Falling down is penalized, and results in subtracting 1000 from fitness (empirically chosen), so that organisms that fall early in the episode are punished more severely than those that fall at the end of their task.
@@ -250,7 +232,7 @@ To test the effectiveness of the method, it was first applied to improve the wal
 
 \vspace{4mm}
 \begin{tabular}{c | c          c           c           c         c             c  }
- Figure      &  Transmission & Crossover & Mutation & \# Parents & \# Survivors & Population size \\
+ Figure      &  Transmission & Crossover & Mutation & \# Parents & \# Survivors & Populationsize \\
  \hline
  Mutation    &  0.1              & 0.1           & 0.8          &  10  & 10  & 50  \\ 
  NoMutation  &  0.5              & 0.5           & 0.0          &  10  & 10  & 50  \\
@@ -264,7 +246,7 @@ the performance for this generation prone to error.
 
 
 \subsection{Experiment: Holonomic walk}
-In this experiment, machine learning was applied to improve the omnidirectional walk of the NAO. Evaluation was performed by forcing NAO to execute multiple different subtasks, which were to be performed in quick succession - with no pause in between tasks. The tasks were chosen so that they would closely resemble actions during a football match. There was no bias toward any of the evaluations, with each phase lasting 7 seconds, although the order of the tasks would always be the same. Falling down was penalized, and caused the episode to finish immediately. A parameter set was evaluated based on performance in each of these tasks:
+In this experiment, machine learning was applied to improve the omnidirectional walk of the Nao. Evaluation was performed by forcing Nao to execute multiple different subtasks, which were to be performed in quick succession - with no pause in between tasks. The tasks were chosen so that they would closely resemble actions during a football match. There was no bias toward any of the evaluations, with each phase lasting 7 seconds, although the order of the tasks would always be the same. Falling down was penalized, and caused the episode to finish immediately. \\\\\\
 
 A parameter set was evaluated based on performance in each of these tasks:
 \begin{itemize}
@@ -287,7 +269,7 @@ increasing in the first 25 generations. The graph in figure \ref{fig:max} shows 
 
 
 \subsection{Evaluation}
-Results for both experiments indicate an incline in performance. As can be seen in figure \ref{fig:avgforward}, it proved useful to limit mutation, as random trials usually ended up in organisms with lower fitness than generations created using different settings. Test NoMutation is used as a benchmark, needed because of noise in the evaluation, by setting the mutation rate to zero. This ensures that each generation contained only exact copies of the very first organism. Its low performance at generation 0 can be explained by this noise as well, as the first generation contained only copies of the initial organism. Although setting transmission-, crossover- and mutation rate equal resulted in nearly the same performance, setting crossover-rate relatively high resulted in higher fitness. 
+Results for both experiments indicate an incline in performance. As can be seen in figure \ref{fig:avgforward}, it proved useful to limit mutation, as random trials usually ended up in organisms with lower fitness than generations created using different settings. Test NoMutation is used as a benchmark, needed because of noise in the evaluation, by setting the mutationrate to zero. This ensures that each generation contained only exact copies of the very first organism. Its low performance at generation 0 can be explained by this noise as well, as the first generation contained only copies of the initial organism. Although setting transmission-, crossover- and mutationrate equal resulted in nearly the same performance, setting crossover-rate relatively high resulted in higher fitness. 
 
 The fitness function makes it so that performance in the second experiment can not be directly compared to the first experiment, however, the respective relative increases in performance can be compared. The second experiment shows a more steady increase in performance. This can be explained by the complexity of the task: The chance that a mutation improves performance in just the task of walking forward is higher than it improving performance in multiple subtasks, all of which contribute to the total fitness of the organism. 
 
@@ -305,19 +287,10 @@ Results indicate that the selected method and chosen parameter settings improve 
 	\caption{Maximum fitness of the population over time.}
 	\label{fig:max}
 \end{figure}
+\newpage
 
 \section{Conclusion}
-In this project, the effectiveness of evolutionary algorithms is tested by
-applying these to optimize walking parameters for a bipedal robot. At the start
-of the learning process, a working set of walking parameters is available in an
-existing framework, meaning that not the joint values but the parameters for
-the framework must be optimized. Different parameter settings are tried to
-learn the optimal parameter-set for a single task, namely walking forward.
-Based on this first experiment, the best found settings are used to learn an
-optimal parameter-set for a holonomic walk. Results for both experiments
-indicate that there is indeed an improvement in performance, but that starting
-with a suboptimal set makes it so that the resulting increase in performance is
-small.
+In this project, the effectiveness of evolutionary algorithms is tested by applying these to optimize walking parameters for a bipedal robot. At the start of the learning process, a working set of walking parameters is available in an existing framework, meaning that not the joint values but the parameters for the framework must be optimized. Different parameter settings are tried to learn the optimal parameter-set for a single task, namely walking forward. Based on this first experiment, the best found settings are used to learn an optimal parameter-set for a holonomic walk. Results for both experiments indicate that there is indeed an improvement in performance, but that starting with a suboptimal set makes it so that the resulting increase in performance is small.
 
 \section{Discussion and Future Work}
 Since old individuals are not re-evaluated and the evaluation function is
