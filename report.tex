@@ -246,7 +246,9 @@ the performance for this generation prone to error.
 
 
 \subsection{Experiment: Holonomic walk}
-In this experiment, machine learning was applied to improve the omnidirectional walk of the Nao. Evaluation was performed by forcing Nao to execute multiple different subtasks, which were to be performed in quick succession - with no pause in between tasks. The tasks were chosen so that they would closely resemble actions during a football match. There was no bias toward any of the evaluations, with each phase lasting 7 seconds, although the order of the tasks would always be the same. Falling down was penalized, and caused the episode to finish immediately. A parameter set was evaluated based on performance in each of these tasks:
+In this experiment, machine learning was applied to improve the omnidirectional walk of the Nao. Evaluation was performed by forcing Nao to execute multiple different subtasks, which were to be performed in quick succession - with no pause in between tasks. The tasks were chosen so that they would closely resemble actions during a football match. There was no bias toward any of the evaluations, with each phase lasting 7 seconds, although the order of the tasks would always be the same. Falling down was penalized, and caused the episode to finish immediately. \\\\\\
+
+A parameter set was evaluated based on performance in each of these tasks:
 \begin{itemize}
 \item Walking forward/backward
 \item Turning
@@ -254,13 +256,11 @@ In this experiment, machine learning was applied to improve the omnidirectional 
 \item Quick stopping/starting and direction changes
 \end{itemize}
 
-The graph in figure \ref{fig:avg} shows how the average fitness of the population changes over time. The shown results are promising, as the fitness is generally growing in the first 25 generations. 
-
-The graph in figure \ref{fig:max} shows the fitness of the fittest individual in the population over time, which is monotonically increasing. Reason for this is that the surviving group of each population, of which the fittest individual is part of, is not re-evaluated. 
+The graph in figure \ref{fig:avg} shows how the average fitness of the population changes over time. The shown results are promising, as the fitness is generally growing in the first 25 generations. The graph in figure \ref{fig:max} shows the fitness of the fittest individual in the population over time, which is monotonically increasing. Reason for this is that the surviving group of each population, of which the fittest individual is part of, is not re-evaluated. 
 
 \begin{figure}[h!]
 	\center
-	\includegraphics[width=.7\textwidth]{images/relevant_avg.pdf}
+	\includegraphics[width=.65\textwidth]{images/relevant_avg.pdf}
 	\caption{Average fitness for different parameter settings.}
 	\label{fig:avgforward}
 \end{figure}
