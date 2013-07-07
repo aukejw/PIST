@@ -78,13 +78,17 @@ averaging tendencies even out the effects of probabilistic sampling, resulting
 in a set of good solutions \cite{nordin1997line}.
 
 MacAlpine and Stone have been successful in the use of a genetic algorithm
-to learn to walk on a NAO robot. Their approach uses the CMA-ES policy search,
+to learn a NAO robot to walk. Their approach uses the CMA-ES policy search,
 and did an extensive search of a policy space consisting of 14 out of over 40
-parameters \cite{macalpineusing}.
-Meijer has applied Finite Difference, Vanilla, Episodic
-Natural Actor Critic and a Genetic Algorithm to learn to kick a ball with a
-NAO \cite{meijer2012getting}. It should be noted that these methods were applied 
-to improve performance of an already existing kicking motion. 
+parameters \cite{macalpineusing}. However, for this method to show any result, 
+a huge number of rollouts (simulation runs) is needed. This is not necessarily true 
+for some other gradient methods and genetic algorithms, which can show improvement 
+early on (even before convergence). Both have been applied by Meijer, who tested performance 
+of methods he refers to as Finite Difference, Vanilla, Episodic Natural Actor Critic and a 
+genetic algorithm, in learning an optimal kicking motion for a NAO \cite{meijer2012getting}. 
+It should be noted that these methods were applied to improve performance of an already 
+existing kicking motion. 
+
 
 \subsection{Genetic algorithm}
 A basic genetic algorithm contains at least the following:
