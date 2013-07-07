@@ -198,13 +198,15 @@ experiments. To emphasise that the robot should be able to walk in any
 direction, each evaluation consists of a set of tests, which can include
 walking forward, backward, sideways (strafing), rotating, and walking
 diagonally in any direction, we use the weighted harmonic mean (equation
-\ref{eq:harmonic}).
+\ref{eq:harmonic}). It rewards increases closer to 0 more than at higher
+values, which should result in a behaviour that should at least be able to
+perform each task to a certain minimum level.
 
 \begin{equation}
 	\frac{\sum^{n}_{i=1} w_i} {\sum^{n}_{i=1}\frac{w_i}{x_i}}
     \label{eq:harmonic}
 \end{equation}
-The weights allow for focusing more on specific tasks such as walking forwards.
+The weights allow for focussing more on specific tasks such as walking forwards.
 The framework allows for giving a negative reward when the robot falls over.
 The individual can be killed to save time and reduce the chance of damage in
 the case of testing in the real world.
