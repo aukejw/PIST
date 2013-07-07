@@ -58,7 +58,7 @@ the end of the competition.
 
 \begin{figure}
 	\center
-	\includegraphics[scale=.85]{images/naospecsJoints}
+	\includegraphics[scale=.8]{images/naospecsJoints}
 	\caption{Aldebaran overview of NAO joints.}
 	\label{fig:joints}
 \end{figure}
@@ -90,30 +90,27 @@ It should be noted that these methods were applied to improve performance of an 
 existing kicking motion. 
 
 
-\subsection{Genetic algorithm}
-A basic genetic algorithm contains at least the following:
+\subsection{Genetic algorithms}
+Genetic algorithms are a name for machine learning methods that aim to optimize through means similar to biological evolution. A basic genetic algorithm contains at least the following:
 
 \begin{itemize} 
-\item Properties that define an organism, the `genes' that can be altered to create new organisms.
-\item A population of organisms that is to be evaluated. 
+\item Properties that define an organism: The `genes' that can be altered to create new organisms.
+\item A population of organisms that is to be evaluated.
 \item A fitness function and corresponding evaluation tasks that specifies how these organisms are evaluated.
 \item A way to generate new generations based on old ones. 
 \item Learning parameters that influence how new generations are formed. 
 \end{itemize}
 
-Through the fitness function and corresponding evaluations, the search can be guided towards a specific direction. A disadvantage of this method is that the fitness function must be user-specified, which may be hard to do in tasks with multiple objectives or in cases where the criteria for performance are unclear.
+The algorithm evaluates the population, and based on each organisms performance, selects `parents' out of which new generations can be created, similar to the biological process of natural selection. Through the fitness function and corresponding evaluations, the search can be guided. A disadvantage of this method is that the fitness function must be user-specified, which may be hard to do in tasks with multiple objectives or in cases where the criteria for performance are unclear. \\
 
-The ways in which new generations are generated are similar to biological generation of offspring.  
+The ways in which new generations are generated are similar to biological generation of offspring:
 \begin{itemize} 
 \item Transmission of parts of either parent.
 \item Crossover between two parents by taking a (weighted) mean of parts of the two.
 \item Mutation by adding random elements to the organism.
 \end{itemize}
 
-
-For each generation there is a part of individuals that is copied to the next one. Some of those individuals are picked to generate new individuals using transmission, crossover or mutation. It's important then to set a proper number of survivors and parents in order to have the highest quality features of fittest individuals pass to the next generation without however limiting the search space to a small area. 
-
-
+For each generation there can also be a part of individuals that is directly copied to the next one (the organisms survive). It's important to set a proper number of survivors and parents in order to have the highest quality features of fittest individuals pass to the next generation without however limiting the search space to a small area. If too many organisms survive, it could be possible that these and their offspring dominate the concurrent generations in a few timesteps, causing a local optimum to be reached.
 
 
 \section{Approach}
@@ -137,7 +134,7 @@ Some examples are:
 \item[CoMHeight] Height of the center of mass of the robot during walking. The lower the body will be, the more stable the walk. However, the load on the leg joints will be higher and steps must be much smaller than for high center of mass. 
 \end{description}
 
-We choose to solve this problem using machine learning methods, as setting and testing these parameters manually is a time-consuming task and does not guarantee selection of an optimal parameter set. The differences between robots (for example actuator and sensor error) cause parameter settings to have a different effect on each robot. Also, the use of machine learning (and, more specifically, reinforcement learning) to learn robots to perform complex tasks is a relevant topic in AI research, and is a problem that is not limited to NAO robots, but applies to many other situations. 
+This problem is to be solved using machine learning methods, as setting and testing these parameters manually is a time-consuming task and does not guarantee selection of an optimal parameter set. The differences between robots (for example actuator and sensor error) cause parameter settings to have a different effect on each robot. Also, the use of machine learning (and, more specifically, reinforcement learning) to learn robots to perform complex tasks is a relevant topic in AI research, and is a problem that is not limited to NAO robots, but applies to many other situations. 
 
 %\subsection{Fitness function and evaluation}
 %As the resulting parameter settings are to be used in a real game, and the ultimate goal is to win the game, the best evaluation for a %parameter set would be to play a match and use the outcome as feedback. However, this would take a long time, and it can be deduced that %a fast and stable walk will in general result in high performance during matches. Therefore, the evaluation 
