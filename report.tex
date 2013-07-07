@@ -224,27 +224,29 @@ The main implemented functions are:
 To test the performance of the implemented framework, two separate experiments were conducted. Both will be described below. 
 
 \subsection{Experiment: Walking forward}
-To test the effectiveness of the method, it was first applied to improve the walk in the $x$-direction. The effect of different parameter settings can be seen in figure \ref{fig:avgforward}. The settings for these experiments were as follows:
-
+To test the effectiveness of the method, it was first applied to improve the walk in the $x$-direction. The effect of different parameter settings can be seen in figure \ref{fig:avgforward}. The settings for these tests were as follows:
 
 \begin{tabular}{c | c          c           c           c         c             c  }
  Figure      &  Transmission & Crossover & Mutation & \# Parents & \# Survivors & Populationsize \\
  \hline
- Mutation    &  0.1              & 0.1           & 0.8          &  10  & 10  & 50  \\
  NoMutation  &  0.5              & 0.5           & 0.0          &  10  & 10  & 50  \\
+ Mutation    &  0.1              & 0.1           & 0.8          &  10  & 10  & 50  \\ 
  Crossover   &  0.1              & 0.8           & 0.1          &  10  & 10  & 50  \\
  Equal       &  0.1              & 0.1           & 0.1          &  10  & 10  & 50  \\
 \end{tabular}
 
+It should be noted that the first generation of each test contains only copies of the first individual, making 
+the performance for this generation prone to error. 
+
 \begin{figure}
 	\center
-	\includegraphics[width=.8\textwidth]{images/relevant_avg.png}
+	\includegraphics[width=.8\textwidth]{images/relevant_avg.pdf}
 	\caption{Average fitness for different parameter settings.}
 	\label{fig:avgforward}
 \end{figure}
 
 \subsection{Experiment: Holonomic walk}
-In this experiment, machine learning was applied to improve the omnidirectional walk of the Nao. Evaluation was performed by forcing Nao to execute multiple different subtasks, which were to be performed in quick succession - with no pause in between tasks. The tasks were chosen so that they would closely resemble actions during a football match. There was no bias toward any of the evaluations, with each phase lasting 7 seconds, although the order of the tasks would always be the same. Falling down was penalized, and causedd the episode to finish immediately. A parameter set was evaluated based on performance in each of these tasks:
+In this experiment, machine learning was applied to improve the omnidirectional walk of the Nao. Evaluation was performed by forcing Nao to execute multiple different subtasks, which were to be performed in quick succession - with no pause in between tasks. The tasks were chosen so that they would closely resemble actions during a football match. There was no bias toward any of the evaluations, with each phase lasting 7 seconds, although the order of the tasks would always be the same. Falling down was penalized, and caused the episode to finish immediately. A parameter set was evaluated based on performance in each of these tasks:
 \begin{itemize}
 \item Walking forward/backward
 \item Turning
@@ -257,29 +259,29 @@ The graph in figure \ref{fig:avg} shows how the average fitness of the populatio
 The graph in figure \ref{fig:max} shows the fitness of the fittest individual in the population over time, which is monotonically increasing. Reason for this is that the surviving group of each population, of which the fittest individual is part of, is not re-evaluated. 
 
 \subsection{Evaluation}
+Results for both experiments indicate an incline in performance. As can be seen in figure \ref{fig:avgforward}, it proved useful to limit mutation, as random trials usually ended up in organisms with lower fitness than generations created using different settings. Test NoMutation is used as a benchmark, needed because of noise in the evaluation, by setting the mutationrate to zero. This ensures that each generation contained only exact copies of the very first organism. It's low performance at generation 0 can be explained by this noise as well, as the first generation contained only copies of the initial organism. 
+
+
 
 \subsection{Results in RoboCup 2013}
 Using the walking parameters that were result of a partial learning process using both simulation and real life environment, there has been a visible improvement in performance of our team of robots, compared to the previous competition (Iran Open 2013  \footnote{http://2013.iranopen.ir/}). 
 
 \begin{figure}
 	\center
-	\includegraphics[width=.8\textwidth]{images/fitness}
+	\includegraphics[width=.7\textwidth]{images/fitness}
 	\caption{Average fitness of the population over time.}
 	\label{fig:avg}
 \end{figure}
 
 \begin{figure}
 	\center
-	\includegraphics[width=.8\textwidth]{images/max_fitness}
+	\includegraphics[width=.7\textwidth]{images/max_fitness}
 	\caption{Maximum fitness of the population over time.}
 	\label{fig:max}
 \end{figure}
 
 
- 
-
-\section{Future Work}
- 
+\section{Future Work} 
 
 In the future we look forward to working on online learning, that is learning during matches, for several reasons. First, there are some conditions and situations that are difficult to recreate in lab or in simulation. Also the learning process is time consuming and by using online learning we can exploit matches as an opportunity to have more time to improve our results. To do that it's necessary to classify different kind of actions sequences in order to learn different sets of parameters for each of them. Also we need to find a way to predict what kind of sequence of actions is about to be performed in order to chose what set of parameters to apply during a match. We think this would give a big improvement to our game as different actions ,such as walking forward or turning, work better with different settings. It would be easy to implement different parameters for each action, but that wouldn't make such a difference as working on different sets of actions. That's because actions such as staying still don't require any particular parameter set per se, but if combined with other actions such as walking forward (so, for example, doing a few steps and stop) specific values are needed for the parameters. 
 
