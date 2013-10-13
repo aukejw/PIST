@@ -3,6 +3,8 @@
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{hyperref}
+\usepackage{subcaption}
+
 
 \title{\huge Automated Optimization of Walking Parameters for the NAO Humanoid Robot}
 
@@ -91,9 +93,10 @@ existing kicking motion.
 
 
 \subsection{Genetic algorithms}
-Genetic algorithms are a name for machine learning methods that aim to optimize through means similar to biological evolution. A basic genetic algorithm contains at least the following:
+Genetic algorithms are a name for machine learning methods that aim to optimize through means similar to biological evolution. A basic genetic algorithm contains at least the following: \vspace{-2mm}
 
-\begin{itemize} 
+\begin{itemize}
+\setlength{\itemsep}{-1pt} 
 \item Properties that define an organism: The `genes' that can be altered to create new organisms.
 \item A population of organisms that is to be evaluated.
 \item A fitness function and corresponding evaluation tasks that specifies how these organisms are evaluated.
@@ -101,21 +104,14 @@ Genetic algorithms are a name for machine learning methods that aim to optimize 
 \item Learning parameters that influence how new generations are formed. 
 \end{itemize}
 
-The algorithm evaluates the population, and based on each organisms performance, selects `parents' out of which new generations can be created, similar to the biological process of natural selection. Through the fitness function and corresponding evaluations, the search can be guided. A disadvantage of this method is that the fitness function must be user-specified, which may be hard to do in tasks with multiple objectives or in cases where the criteria for performance are unclear. \\
-
-The ways in which new generations are generated are similar to biological generation of offspring:
-\begin{itemize} 
-\item Transmission of parts of either parent.
-\item Crossover between two parents by taking a (weighted) mean of parts of the two.
-\item Mutation by adding random elements to the organism.
-\end{itemize}
+The algorithm evaluates the population, and based on each organisms performance, selects `parents' out of which new generations can be created, similar to the biological process of natural selection. Through the fitness function and corresponding evaluations, the search can be guided. A disadvantage of this method is that the fitness function must be user-specified, which may be hard to do in tasks with multiple objectives or in cases where the criteria for performance are unclear. The ways in which new generations are generated are similar to biological generation of offspring: Genes of either parent are transmissed directly, new genes are derived through crossovers by taking a (weighted) mean of genes of the two, or entirely new genes are created through mutation by adding random elements to the organism.
 
 For each generation there can also be a part of individuals that is directly copied to the next one (the organisms survive). It's important to set a proper number of survivors and parents in order to have the highest quality features of fittest individuals pass to the next generation without however limiting the search space to a small area. If too many organisms survive, it could be possible that these and their offspring dominate the concurrent generations in a few timesteps, causing a local optimum to be reached.
 
 
 \section{Approach}
 \subsection{Platform}
-The robot used in SPL is NAO (version H25) by Aldebaran \citep{gouaillier2009mechatronic}, a humanoid, bipedal robot. It has inertia sensors that enable fall-detection, and a total of eight resistance sensors in the two feet that allow for early detection of imbalance. Both of these are used in the evaluation of parameter settings. Figure \ref{fig:joints} shows an overview of the NAO's joints.
+The robot used in SPL is NAO (version H25) by Aldebaran \citep{gouaillier2009mechatronic}, a humanoid, bipedal robot. It has inertia sensors that enable fall-detection, and a total of eight resistance sensors in the two feet that allow for early detection of imbalance. Both of these are used in the evaluation of parameter settings. Figure \ref{fig:joints} shows an overview of the NAO's joints. It should be noted that the training and evaluation were both performed in simulation using models of this particular robot, due to the high number of iterations needed for these to be effective.
 
 \subsection{Walking engine}
 In the RoboCup 2013 we used the NaoTH framework for NAO by Berlin United
@@ -134,7 +130,7 @@ Some examples are:
 \item[CoMHeight] Height of the center of mass of the robot during walking. The lower the body will be, the more stable the walk. However, the load on the leg joints will be higher and steps must be much smaller than for high center of mass. 
 \end{description}
 
-This problem is to be solved using machine learning methods, as setting and testing these parameters manually is a time-consuming task and does not guarantee selection of an optimal parameter set. The differences between robots (for example actuator and sensor error) cause parameter settings to have a different effect on each robot. Also, the use of machine learning (and, more specifically, reinforcement learning) to teach robots to perform complex tasks is a relevant topic in AI research, and is a problem that is not limited to NAO robots, but applies to many other situations. 
+The problem of selecting values for these parameters is to be solved using a genetic algorithm, as setting and testing these parameters manually is a time-consuming task and does not guarantee selection of an optimal parameter set. The differences between robots (for example actuator and sensor error) cause parameter settings to have a different effect on each robot. Also, the use of machine learning (and, more specifically, reinforcement learning) to teach robots to perform complex tasks is a relevant topic in AI research, and is a problem that is not limited to NAO robots, but applies to many other situations. 
 
 %\subsection{Fitness function and evaluation}
 %As the resulting parameter settings are to be used in a real game, and the ultimate goal is to win the game, the best evaluation for a %parameter set would be to play a match and use the outcome as feedback. However, this would take a long time, and it can be deduced that %a fast and stable walk will in general result in high performance during matches. Therefore, the evaluation 
@@ -143,6 +139,7 @@ This problem is to be solved using machine learning methods, as setting and test
 For the use of machine learning methods described in the previous section, the NaoTH framework was extended with a module `MachineLearning', which serves as a generic input for different machine learning methods. It consists of multiple classes:
 
 \begin{description}
+\setlength{\itemsep}{-2pt}
 \item[MachineLearning] The module class itself, handles debug requests from users.
 \item[LearnToWalk] The evaluation program, used by the module to test performance of specific parameter sets.
 \item[MachineLearningMethod] An abstract class that contains pure virtual functions, to be implemented by classes corresponding to specific machine learning methods.
@@ -151,14 +148,14 @@ For the use of machine learning methods described in the previous section, the N
 This module can be controlled through debug requests. Alongside the module, an interface was created for easy parameter selection and the display of information during learning.
 
 \subsection{Learning Parameters}
-
 To set the genetic algorithm we use specific parameters:
 
 \begin{description}
+\setlength{\itemsep}{-2pt}
 \item[crossoverRate] Defines the weight for crossover.
 \item[mutationRate] Defines the weight for mutation.
 \item[trasmitRate] Defines the weight for transmission.
-\item[maxGeneration] The maximum number of generations that can be evaluated before the learning process ends. 
+\item[maxGeneration] The maximum number of generations that is be evaluated before the algorithm ends. 
 
 \item[ResettingTime] Time before the Nao touches the ground after a previous evaluation has ended.
 \item[RunningTime] Duration of an evaluation.
@@ -170,18 +167,7 @@ To set the genetic algorithm we use specific parameters:
 \end{description}
 
 \subsection{Evaluation Tasks}
-
-The evaluation tasks that were defined to run the tests are:
-
-\begin{itemize}
-\item Walk forward/backward 
-\item Strafe left/right 
-\item Turn right/left x degrees 
-\item Walk diagonally (walk forward/backward + strafe left/right) 
-
-\end{itemize}
-
-These tasks can be combined to obtain more realistic and challenging action sequences.
+Four different evaluation tasks were used. Walking (forward, then backward) is used to emphasize speed, strafing (left, then right) is incorporated because this is a task that occurs quite frequently during matches. Turning (clockwise, then counterclockwise) is also used quite often during matches. Walk diagonally (walk forward/backward + strafe left/right) was added to the evaluation tasks to ensure that the robot will be able to compensate for overshoot when walking straight towards an object. These four tasks can be combined to obtain more realistic and challenging action sequences.
 % TODO pic interface + screen
 
 \subsection{Fitness Function}
@@ -208,9 +194,9 @@ The learning process is managed and controlled through a GUI implemented in Java
 Its main functions are:
 
 \begin{description}
-\item[Learn] Starts the genetic algorithm
-\item[Select the learning method]
-\item[List] Shows the list of learning parameters currently in use
+\setlength{\itemsep}{-2pt}
+\item[Learn] Starts the genetic algorithm.
+\item[List] Shows the list of learning parameters currently in use.
 \item[GetInfo] Shows relevant information such as the current generation number, the current individual number, and the walking parameters for the fittest individual in the current generation.
 \end{description}
 
@@ -246,12 +232,18 @@ To test the effectiveness of the method, it was first applied to improve the wal
 It should be noted that the first generation of each test contains only copies of the first individual, making 
 the performance for this generation prone to error. 
 
+\vspace{-3mm}
+\begin{figure}[h!]
+	\center
+	\includegraphics[width=.65\textwidth]{images/relevant_avg.pdf}
+	\caption{Average fitness for different parameter settings.}
+	\label{fig:avgforward}
+\end{figure}
 
 \subsection{Experiment: Holonomic walk}
-In this experiment, machine learning was applied to improve the omnidirectional walk of the Nao. Evaluation was performed by forcing Nao to execute multiple different subtasks, which were to be performed in quick succession - with no pause in between tasks. The tasks were chosen so that they would closely resemble actions during a football match. There was no bias toward any of the evaluations, with each phase lasting 7 seconds, although the order of the tasks would always be the same. Falling down was penalized, and caused the episode to finish immediately. \\\\\\
-
-A parameter set was evaluated based on performance in each of these tasks:
+In this experiment, machine learning was applied to improve the omnidirectional walk of the Nao. Evaluation was performed by forcing Nao to execute multiple different subtasks, which were to be performed in quick succession - with no pause in between tasks. The tasks were chosen so that they would closely resemble actions during a football match. There was no bias toward any of the evaluations, with each phase lasting 7 seconds, although the order of the tasks would always be the same. Falling down was penalized, and caused the episode to finish immediately. A parameter set was evaluated based on performance in each of these tasks:
 \begin{itemize}
+\setlength{\itemsep}{-2pt}
 \item Walking forward/backward
 \item Turning
 \item Walking towards a static target
@@ -263,10 +255,20 @@ population changes over time. The graph suggests that the fitness is generally
 increasing in the first 25 generations. The graph in figure \ref{fig:max} shows the fitness of the fittest individual in the population over time, which is monotonically increasing. Reason for this is that the surviving group of each population, of which the fittest individual is part of, is not re-evaluated. 
 
 \begin{figure}[h!]
+\centering
+\begin{subfigure}[b]{0.49\textwidth}
 	\center
-	\includegraphics[width=.65\textwidth]{images/relevant_avg.pdf}
-	\caption{Average fitness for different parameter settings.}
-	\label{fig:avgforward}
+	\includegraphics[width=\textwidth]{images/fitness}
+	\caption{Average fitness of the population over time.}
+	\label{fig:avg}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}
+	\center
+	\includegraphics[width=\textwidth]{images/max_fitness}
+	\caption{Maximum fitness of the population over time.}
+	\label{fig:max}
+\end{subfigure}
+\caption{Plot showing fitness of populations for a total of 40 generations.}
 \end{figure}
 
 
@@ -276,23 +278,10 @@ Results for both experiments indicate an incline in performance. As can be seen 
 The fitness function makes it so that performance in the second experiment can not be directly compared to the first experiment, however, the respective relative increases in performance can be compared. The second experiment shows a more steady increase in performance. This can be explained by the complexity of the task: The chance that a mutation improves performance in just the task of walking forward is higher than it improving performance in multiple subtasks, all of which contribute to the total fitness of the organism. 
 
 Results indicate that the selected method and chosen parameter settings improve mean performance of the generation over time and will continue to do so. 
-\begin{figure}[h!]
-	\center
-	\includegraphics[width=.8\textwidth]{images/fitness}
-	\caption{Average fitness of the population over time.}
-	\label{fig:avg}
-\end{figure}
-
-\begin{figure}[h!]
-	\center
-	\includegraphics[width=.8\textwidth]{images/max_fitness}
-	\caption{Maximum fitness of the population over time.}
-	\label{fig:max}
-\end{figure}
-\newpage
 
 \section{Conclusion}
-In this project, the effectiveness of evolutionary algorithms is tested by applying these to optimize walking parameters for a bipedal robot. At the start of the learning process, a working set of walking parameters is available in an existing framework, meaning that not the joint values but the parameters for the framework must be optimized. Different parameter settings are tried to learn the optimal parameter-set for a single task, namely walking forward. Based on this first experiment, the best found settings are used to learn an optimal parameter-set for a holonomic walk. Results for both experiments indicate that there is indeed an improvement in performance, but that starting with a suboptimal set makes it so that the resulting increase in performance is small.
+In this project, the effectiveness of evolutionary algorithms is tested by applying one of these to optimisation of walking parameters for a simulated bipedal robot. At the start of the learning process, a working set of walking parameters is available in an existing framework, meaning that not the joint values but the parameters for the framework must be optimized.  \\
+The algorithm and the system controlling the experiment are discussed shortly. Different parameter settings are tried to learn the optimal parameter-set for a single task, namely walking forward. Based on this first experiment, the best found settings are used to learn an optimal parameter-set for a holonomic walk. Results for both experiments indicate that there is indeed an improvement in performance, but that starting with a suboptimal set makes it so that the resulting increase in performance is small.  \newpage
 
 \section{Discussion and Future Work}
 Since old individuals are not re-evaluated and the evaluation function is
